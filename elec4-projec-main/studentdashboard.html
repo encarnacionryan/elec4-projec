@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Dashboard - EdUpdate</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      body {
+        background-color: #f5f6fa;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      header {
+        background-color: #1e3a5f;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 25px;
+      }
+      .left-header {
+        display: flex;
+        align-items: center;
+      }
+      .left-header img {
+        height: 35px;
+        margin-right: 10px;
+      }
+      .left-header h1 {
+        font-size: 1.3rem;
+        color: yellow;
+        font-weight: 600;
+      }
+      .center-header {
+        text-align: center;
+        flex: 1;
+      }
+      .right-header {
+        display: flex;
+        align-items: center;
+        background: #b9c8f3;
+        border-radius: 30px;
+        padding: 5px 15px;
+      }
+      .main {
+        display: flex;
+        flex: 1;
+      }
+      .sidebar {
+        width: 230px;
+        background: #1e3a5f;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 20px 0;
+        border-top: 3px solid #f5f6fa;
+        position: sticky;
+        left: 0;
+        top: 65px;
+        height: calc(100vh - 65px);
+        min-height: 0;
+        z-index: 99;
+        flex-shrink: 0;
+        box-shadow: 2px 0 8px rgba(30,58,95,0.08);
+      }
+      .sidebar .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        align-items: flex-start;
+        padding: 0 28px;
+      }
+      .sidebar .menu a {
+        display: block;
+        width: 100%;
+        color: #eaf1ff;
+        text-decoration: none;
+        font-size: 1.08rem;
+        font-weight: 500;
+        padding: 10px 0 10px 8px;
+        border-radius: 8px;
+        transition: background 0.18s, color 0.18s;
+        letter-spacing: 0.01em;
+        background: transparent;
+        margin-bottom: 2px;
+      }
+      .sidebar .menu a.active, .sidebar .menu a:hover {
+        background: #fff;
+        color: #1e3a5f;
+        font-weight: bold;
+        box-shadow: 0 2px 8px rgba(30,58,95,0.08);
+      }
+      .sidebar .menu a:last-child {
+        margin-top: 18px;
+        color: #ffb3b3;
+        font-weight: 600;
+      }
+      .sidebar .help {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: 600;
+        gap: 8px;
+        margin-top: 40px;
+        padding: 0 28px;
+        color: #1e3a5f;
+        opacity: 0.95;
+      }
+      .sidebar .help:hover {
+        background: #eaf1ff;
+        color: #294a74;
+        border-radius: 8px;
+      }
+      @media (max-width: 800px) {
+        .sidebar {
+          flex-direction: row;
+          align-items: center;
+          justify-content: flex-start;
+          width: 100%;
+          height: auto;
+          padding: 0;
+        }
+        .sidebar .menu {
+          flex-direction: row;
+          gap: 10px;
+          padding: 0 10px;
+        }
+        .sidebar .menu a {
+          padding: 8px 10px;
+          font-size: 0.98rem;
+        }
+        .sidebar .help {
+          margin-top: 0;
+          margin-left: auto;
+          padding: 0 10px;
+        }
+      }
+
+      .content {
+        flex: 1;
+        padding: 30px;
+        display: flex;
+        gap: 25px;
+      }
+      .left-container,
+      .right-container {
+        flex: 1;
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+      }
+      .section-content {
+        flex: 1;
+        border: 1px dashed #ccc;
+        border-radius: 10px;
+        padding: 15px;
+        background: #fafafa;
+        text-align: center;
+      }
+      .profile-card {
+        background: #f7f7f7;
+        border: 1px solid #bbb;
+        border-radius: 12px;
+        padding: 24px 32px 18px 32px;
+        margin-bottom: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        min-width: 0;
+      }
+      .profile-info {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .profile-info strong {
+        font-size: 1.25rem;
+        color: #1e3a5f;
+      }
+      .profile-info span {
+        font-size: 1rem;
+        color: #222;
+      }
+      .profile-img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #1e3a5f;
+        background: #fff;
+      }
+      .edit-profile-btn {
+        margin-top: 10px;
+        background: #1e3a5f;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 8px 18px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .edit-profile-btn:hover {
+        background: #294a74;
+      }
+      .quiz-card, .news-card {
+        background: #eaf1ff;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(30,58,95,0.10);
+        padding: 18px 20px;
+        margin-bottom: 18px;
+        min-width: 0;
+        word-break: break-word;
+      }
+      .quiz-card h4, .news-card h4 {
+        color: #1e3a5f;
+        margin-bottom: 10px;
+      }
+      .quiz-options {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      .quiz-options label {
+        background: #fff;
+        border-radius: 8px;
+        padding: 8px 10px;
+        cursor: pointer;
+        border: 1px solid #b7c9f2;
+        transition: background 0.18s, border 0.18s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .quiz-options input[type="radio"]:checked + span {
+        color: #1e3a5f;
+        font-weight: bold;
+      }
+      .quiz-submit-btn {
+        background: #1e3a5f;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 8px 18px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.2s;
+        margin-top: 8px;
+      }
+      .quiz-submit-btn:hover {
+        background: #294a74;
+      }
+      .news-card img {
+        max-width: 100%;
+        max-height: 90px;
+        border-radius: 8px;
+        margin-bottom: 8px;
+      }
+      .tab-btns {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      .tab-btn {
+        background: #eaf1ff;
+        color: #1e3a5f;
+        border: none;
+        border-radius: 8px 8px 0 0;
+        padding: 8px 22px;
+        font-size: 1.05rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.18s, color 0.18s;
+        outline: none;
+      }
+      .tab-btn.active {
+        background: #1e3a5f;
+        color: #ffd700;
+      }
+      .tab-btn:not(.active):hover {
+        background: #b7c9f2;
+        color: #1e3a5f;
+      }
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+      .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 500px;
+        border-radius: 10px;
+      }
+      .close-btn {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .close-btn:hover,
+      .close-btn:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="left-header">
+        <img src="image/EdUpdate-logo.png" alt="EdUpdate Logo" />
+        <h1>
+          EdUpdate<br /><span style="font-size: 0.9rem; color: white"
+            >Student Dashboard</span
+          >
+        </h1>
+      </div>
+      <div class="center-header">
+        <h2 id="welcome" style="color: white; font-size: 1.05rem">Welcome</h2>
+        <p style="color: white; font-size: 0.85rem">Student Portal</p>
+      </div>
+      <div class="right-header">
+        <img
+          src="image/robot.png"
+          alt="profile"
+          style="
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #fff;
+            margin-right: 10px;
+          "
+        />
+        <div class="name">
+          <strong id="studentName">Student</strong
+          ><span id="studentNo" style="font-size: 0.85rem; color: #333"
+            >No.</span
+          >
+        </div>
+      </div>
+    </header>
+
+    <div class="main">
+      <div class="sidebar">
+        <div class="menu">
+          <a href="#" id="dashboardTab" onclick="showStudentSection('dashboard')">Dashboard</a>
+          <a href="#" id="profileTab" onclick="showStudentSection('profile')">Profile</a>
+          <a href="index.html"> Log Out</a>
+        </div>
+        <div class="help" onclick="openStudentHelpModal()" style="cursor:pointer;display:flex;align-items:center;justify-content:center;text-align:center;">
+          <span style="flex:1; color:white">Help</span>
+          <span style="border-left:2px solid #fbfbfc;height:28px;margin:0 10px;"></span>
+          <span style="font-size:1.5rem;font-weight:bold;letter-spacing:2px;">?</span>
+        </div>
+      </div>
+      <div id="studentDashboardSection" style="flex:1;display:flex;flex-direction:column;">
+        <div style="padding:32px;display:flex;gap:32px;">
+          <div style="flex:1;display:flex;flex-direction:column;">
+            <div class="profile-card">
+              <div class="profile-info">
+                <strong>STUDENT PROFILE: <span style="color:green;font-size:1.1rem;">●</span></strong>
+                <span>Name: <span id="profileName">Student</span></span>
+                <span>Student ID: <span id="profileNo">-</span></span>
+                <span>Course & Section: <span id="profileCourse">-</span></span>
+                <button class="edit-profile-btn" onclick="openEditProfileModal()">Edit profile</button>
+              </div>
+              <img id="profileImg" class="profile-img" src="image/robot.png" alt="Profile" />
+            </div>
+            <div id="quizContainer"></div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;">
+            <div class="tab-btns">
+              <button class="tab-btn active" id="tabEvents" onclick="toggleStudentNewsTab('event')">Events</button>
+              <button class="tab-btn" id="tabNews" onclick="toggleStudentNewsTab('news')">News</button>
+              <button class="tab-btn" id="tabAnnouncements" onclick="toggleStudentNewsTab('announcement')">Announcement</button>
+            </div>
+            <div id="studentNewsContainer"></div>
+          </div>
+        </div>
+      </div>
+      <div id="studentProfileSection" style="display:none;flex:1;flex-direction:column;align-items:center;justify-content:center;padding:32px;">
+        <div class="profile-card" style="max-width:420px;width:100%;margin:auto;">
+          <div class="profile-info">
+            <strong>STUDENT PROFILE</strong>
+            <span>Name: <span id="profileName2">Student</span></span>
+            <span>Student ID: <span id="profileNo2">-</span></span>
+            <span>Course & Section: <span id="profileCourse2">-</span></span>
+            <button class="edit-profile-btn" onclick="openEditProfileModal()">Edit profile</button>
+          </div>
+          <img id="profileImg2" class="profile-img" src="image/robot.png" alt="Profile" />
+        </div>
+      </div>
+      <div id="editProfileModal" class="modal">
+        <div class="modal-content" style="max-width:400px;text-align:center;">
+          <span class="close-btn" onclick="closeEditProfileModal()">&times;</span>
+          <h3 style="margin-bottom:16px;color:#1e3a5f;">Edit Profile</h3>
+          <form id="editProfileForm" style="display:flex;flex-direction:column;gap:12px;align-items:center;">
+            <input type="file" id="editProfileImgInput" accept="image/*" style="margin-bottom:8px;" />
+            <img id="editProfileImgPreview" src="image/robot.png" class="profile-img" style="margin-bottom:8px;" />
+            <input type="password" id="editProfilePassword" placeholder="New Password" style="width:80%;padding:8px;border-radius:8px;border:1px solid #ccc;" />
+            <button type="button" class="edit-profile-btn" onclick="saveProfileEdit()">Save</button>
+          </form>
+        </div>
+      </div>
+      <div id="studentHelpModal" class="modal">
+        <div class="modal-content" style="max-width:400px;text-align:center;">
+          <span class="close-btn" onclick="closeStudentHelpModal()">&times;</span>
+          <h3 style="margin-bottom:16px;color:#1e3a5f;">Help &amp; Support</h3>
+          <p style="font-size:1.08rem;color:#222;">Need assistance?<br>Contact your system administrator or refer to the user guide.<br><br>For more help, email: <a href="mailto:support@edupdate.com" style="color:#1e3a5f;text-decoration:underline;">support@edupdate.com</a></p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Section switching for student dashboard/profile
+      function showStudentSection(section) {
+        document.getElementById('studentDashboardSection').style.display = section === 'dashboard' ? 'flex' : 'none';
+        document.getElementById('studentProfileSection').style.display = section === 'profile' ? 'flex' : 'none';
+        document.getElementById('dashboardTab').classList.toggle('active', section === 'dashboard');
+        document.getElementById('profileTab').classList.toggle('active', section === 'profile');
+      }
+
+      // Profile modal logic
+      function openEditProfileModal() {
+        document.getElementById('editProfileModal').style.display = 'flex';
+        // Set preview to current image
+        var cur = JSON.parse(localStorage.getItem('currentStudent') || 'null');
+        var img = cur && cur.profileImg ? cur.profileImg : 'image/robot.png';
+        document.getElementById('editProfileImgPreview').src = img;
+        document.getElementById('editProfileImgInput').value = '';
+        document.getElementById('editProfilePassword').value = '';
+      }
+      function closeEditProfileModal() {
+        document.getElementById('editProfileModal').style.display = 'none';
+      }
+      document.getElementById('editProfileImgInput').addEventListener('change', function(e) {
+        var file = e.target.files[0];
+        if (file) {
+          var reader = new FileReader();
+          reader.onload = function(ev) {
+            document.getElementById('editProfileImgPreview').src = ev.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+      function saveProfileEdit() {
+        var cur = JSON.parse(localStorage.getItem('currentStudent') || 'null');
+        if (!cur) return;
+        var imgInput = document.getElementById('editProfileImgInput');
+        var pass = document.getElementById('editProfilePassword').value;
+        var students = JSON.parse(localStorage.getItem('students') || '{}');
+        var imgData = cur.profileImg || 'image/robot.png';
+        if (imgInput.files && imgInput.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+            imgData = e.target.result;
+            finishProfileEdit(imgData, pass, cur, students);
+          };
+          reader.readAsDataURL(imgInput.files[0]);
+        } else {
+          finishProfileEdit(imgData, pass, cur, students);
+        }
+      }
+      function finishProfileEdit(imgData, pass, cur, students) {
+        cur.profileImg = imgData;
+        if (pass) cur.password = pass;
+        students[cur.studentNo] = cur;
+        localStorage.setItem('students', JSON.stringify(students));
+        localStorage.setItem('currentStudent', JSON.stringify(cur));
+        updateStudentProfileUI();
+        closeEditProfileModal();
+      }
+      function updateStudentProfileUI() {
+        var cur = JSON.parse(localStorage.getItem('currentStudent') || 'null');
+        if (!cur) return;
+        document.getElementById('profileName').textContent = cur.name;
+        document.getElementById('profileNo').textContent = cur.studentNo;
+        document.getElementById('profileCourse').textContent = cur.course || '-';
+        document.getElementById('profileImg').src = cur.profileImg || 'image/robot.png';
+        document.getElementById('profileName2').textContent = cur.name;
+        document.getElementById('profileNo2').textContent = cur.studentNo;
+        document.getElementById('profileCourse2').textContent = cur.course || '-';
+        document.getElementById('profileImg2').src = cur.profileImg || 'image/robot.png';
+      }
+
+      // Quiz rendering and taking
+      function renderStudentQuizzes() {
+        var quizzes = JSON.parse(localStorage.getItem('quizzes') || '[]');
+        var container = document.getElementById('quizContainer');
+        if (!quizzes.length) {
+          container.innerHTML = '<div class="quiz-card"><span>No quizzes available.</span></div>';
+          return;
+        }
+        var html = '';
+        quizzes.forEach(function(q, idx) {
+          html += '<div class="quiz-card">';
+          html += '<h4>' + (idx+1) + '. ' + q.question + '</h4>';
+          html += '<form onsubmit="event.preventDefault(); submitQuizAnswer(' + idx + ', this);">';
+          html += '<div class="quiz-options">';
+          ['A','B','C','D'].forEach(function(opt, i) {
+            html += '<label><input type="radio" name="quiz'+idx+'" value="'+opt+'" required><span>' + opt + '. ' + q.options[i] + '</span></label>';
+          });
+          html += '</div>';
+          html += '<button type="submit" class="quiz-submit-btn">Submit</button>';
+          html += '</form>';
+          html += '<div id="quizResult'+idx+'" style="margin-top:8px;font-weight:bold;"></div>';
+          html += '</div>';
+        });
+        container.innerHTML = html;
+      }
+      function submitQuizAnswer(idx, form) {
+        var quizzes = JSON.parse(localStorage.getItem('quizzes') || '[]');
+        var selected = form.querySelector('input[type="radio"]:checked');
+        var resultDiv = document.getElementById('quizResult'+idx);
+        if (!selected) return;
+        if (selected.value === quizzes[idx].correct) {
+          resultDiv.textContent = 'Correct!';
+          resultDiv.style.color = 'green';
+        } else {
+          resultDiv.textContent = 'Incorrect. Correct answer: ' + quizzes[idx].correct;
+          resultDiv.style.color = 'crimson';
+        }
+      }
+
+      // News/Events/Announcements rendering
+      var studentNewsTab = 'event';
+      function toggleStudentNewsTab(type) {
+        studentNewsTab = type;
+        document.getElementById('tabEvents').classList.toggle('active', type==='event');
+        document.getElementById('tabNews').classList.toggle('active', type==='news');
+        document.getElementById('tabAnnouncements').classList.toggle('active', type==='announcement');
+        renderStudentNews();
+      }
+      function renderStudentNews() {
+        var news = JSON.parse(localStorage.getItem('news') || '[]');
+        var filtered = news.filter(function(n){return n.type===studentNewsTab;});
+        var container = document.getElementById('studentNewsContainer');
+        if (!filtered.length) {
+          container.innerHTML = '<div class="news-card"><span>No '+studentNewsTab+'s available.</span></div>';
+          return;
+        }
+        var html = '';
+        filtered.slice().reverse().forEach(function(n) {
+          html += '<div class="news-card">';
+          if (n.img) html += '<img src="'+n.img+'" alt="news image">';
+          html += '<h4>' + (n.type.charAt(0).toUpperCase() + n.type.slice(1)) + '</h4>';
+          html += '<div style="margin-bottom:6px;">' + n.desc + '</div>';
+          if (n.scheduleDate) html += '<div style="font-size:0.95rem;color:#1e3a5f;">Scheduled: ' + n.scheduleDate + '</div>';
+          html += '</div>';
+        });
+        container.innerHTML = html;
+      }
+
+      // On load, set up everything
+      window.onload = function () {
+        var cur = JSON.parse(localStorage.getItem("currentStudent") || "null");
+        if (!cur) {
+          window.location.href = "studentlogin.html";
+          return;
+        }
+        document.getElementById("welcome").textContent =
+          "Welcome Back, " + cur.name + "!";
+        document.getElementById("studentName").textContent = cur.name;
+        document.getElementById("studentNo").textContent = cur.studentNo;
+        updateStudentProfileUI();
+        renderStudentQuizzes();
+        renderStudentNews();
+        showStudentSection('dashboard');
+      };
+      // Modal close on outside click
+      window.onclick = function (e) {
+        if (e.target.classList && e.target.classList.contains("modal")) {
+          e.target.style.display = "none";
+        }
+      };
+      function openStudentHelpModal() {
+        document.getElementById('studentHelpModal').style.display = 'flex';
+      }
+      function closeStudentHelpModal() {
+        document.getElementById('studentHelpModal').style.display = 'none';
+      }
+    </script>
+  </body>
+</html>
