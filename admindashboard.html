@@ -4,12 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EdUpdate - Admin Dashboard</title>
+    <link rel="stylesheet" href="css/bootstrap-icons.css">
     <style>
+      @font-face {
+        font-family: "Poppins";
+        src: url("fonts/Poppins-Regular.otf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Poppins";
+        src: url("fonts/Poppins-Bold.otf") format("truetype");
+        font-weight: bold;
+        font-style: normal;
+      }
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-family: "Poppins";
       }
 
       body {
@@ -17,280 +31,231 @@
         height: 100vh;
         display: flex;
         flex-direction: column;
-        /* Remove overflow: hidden; so the website itself does not scroll */
       }
 
-      /* HEADER */
-      header {
-        background-color: #1e3a5f;
-        color: white;
+      .container {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 10px 25px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        min-height: 65px;
-      }
-
-      .left-header {
-        display: flex;
-        align-items: center;
-      }
-
-      .left-header img {
-        height: 35px;
-        margin-right: 10px;
-      }
-
-      .left-header h1 {
-        font-size: 1.3rem;
-        color: yellow;
-        font-weight: 600;
-        line-height: 1.2;
-      }
-
-      .left-header span {
-        font-size: 1rem;
-        color: white;
-      }
-
-      .center-header {
-        text-align: center;
-        flex: 1;
-      }
-
-      .center-header h2 {
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: white;
-        margin-bottom: 2px;
-      }
-
-      .center-header p {
-        font-size: 0.85rem;
-        color: white;
-      }
-
-      .right-header {
-        display: flex;
-        align-items: center;
-        background-color: #b9c8f3;
-        border-radius: 30px;
-        padding: 5px 15px;
-        color: black;
-      }
-
-      .right-header img {
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        background-color: #fff;
-        margin-right: 10px;
-      }
-
-      .right-header .name {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .right-header .name strong {
-        font-size: 0.95rem;
-        color: #000;
-      }
-
-      .right-header .name span {
-        font-size: 0.8rem;
-        color: #333;
-      }
-
-      /* MAIN LAYOUT */
-      .main {
-        display: flex;
-        flex: 1;
-        height: calc(100vh - 65px);
-        min-height: 0;
+        height: 100vh;
         width: 100vw;
-        overflow: hidden; /* Prevent website scroll, only content scrolls */
       }
 
       .sidebar {
         width: 230px;
-        background: #1e3a5f;
+        background: #18417f;
         color: white;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        padding: 20px 0;
-        border-top: 3px solid #f5f6fa;
-        position: sticky;
-        left: 0;
-        top: 65px;
-        height: calc(100vh - 65px);
-        min-height: 0;
-        z-index: 99;
-        flex-shrink: 0;
-        box-shadow: 2px 0 8px rgba(30,58,95,0.08);
+        justify-content: flex-start;
+        box-shadow: 2px 0 8px rgba(30, 58, 95, 0.08);
+        overflow: visible;
       }
-      .sidebar .menu {
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-        align-items: flex-start;
-        padding: 0 28px;
-      }
-      .sidebar .menu a {
-        display: block;
-        width: 100%;
-        color: #eaf1ff;
-        text-decoration: none;
-        font-size: 1.08rem;
-        font-weight: 500;
-        padding: 10px 0 10px 8px;
-        border-radius: 8px;
-        transition: background 0.18s, color 0.18s;
-        letter-spacing: 0.01em;
-        background: transparent;
-        margin-bottom: 2px;
-      }
-      .sidebar .menu a.active, .sidebar .menu a:hover {
-        background: #fff;
-        color: #1e3a5f;
-        font-weight: bold;
-        box-shadow: 0 2px 8px rgba(30,58,95,0.08);
-      }
-      .sidebar .menu a:last-child {
-        margin-top: 18px;
-        color: #ffb3b3;
-        font-weight: 600;
-      }
-      .sidebar .help {
-        cursor: pointer;
+
+      .logo {
         display: flex;
         align-items: center;
-        justify-content: center;
-        text-align: center;
-        font-size: 1.2rem;
-        font-weight: 600;
+        gap: 10px;
+        margin-bottom: 24px;
+        padding: 20px;
+      }
+
+      .logo img {
+        width: 40px;
+        height: 60px;
+      }
+
+      .logo-text h2 {
+        font-size: 20px;
+        color: #f4d35e;
+      }
+
+      .logo-text p {
+        font-size: 14px;
+        color: #dbe4f3;
+      }
+
+      .sidebar nav {
+        display: flex;
+        flex-direction: column;
         gap: 8px;
         margin-top: 40px;
-        padding: 0 28px;
-        color: #1e3a5f;
-        opacity: 0.95;
+        margin-bottom: 32px;
       }
-      .sidebar .help:hover {
-        background: #eaf1ff;
-        color: #294a74;
+
+      .sidebar nav a {
+        display: block;
+        color: #eaf1ff;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 500;
+        padding: 10px 10px;
         border-radius: 8px;
-      }
-      @media (max-width: 800px) {
-        .sidebar {
-          flex-direction: row;
-          align-items: center;
-          justify-content: flex-start;
-          width: 100%;
-          height: auto;
-          padding: 0;
-        }
-        .sidebar .menu {
-          flex-direction: row;
-          gap: 10px;
-          padding: 0 10px;
-        }
-        .sidebar .menu a {
-          padding: 8px 10px;
-          font-size: 0.98rem;
-        }
-        .sidebar .help {
-          margin-top: 0;
-          margin-left: auto;
-          padding: 0 10px;
-        }
+        transition: background 0.18s, color 0.18s;
+        margin-bottom: 2px;
       }
 
-      #homeSection,
-      #createAccountSection {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        
-      }
-
-      .content {
-        flex: 1;
-        padding: 32px;
-        background-color: #f5f6fa;
-        display: flex;
-        gap: 32px;
-        justify-content: center;
-        align-items: stretch;
-        min-width: 0;
-        min-height: 0;
-        height: 100%;
-      }
-
-      .left-container,
-      .right-container {
-        flex: 1;
-        background-color: white;
-        border-radius: 18px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        padding: 28px;
-        min-width: 0;
-        min-height: 0;
-        margin-bottom: 0;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-      }
-
-      .left-container h2,
-      .right-container h2 {
+      .sidebar nav a.active,
+      .sidebar nav a:hover {
+        background: #fef6f0;
         color: #1e3a5f;
-        font-size: 2rem;
         font-weight: bold;
-        margin-bottom: 10px;
+        border: 1px solid black;
+        box-shadow: 0 2px 8px rgba(30, 58, 95, 0.08);
+        width: 250px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 50px;
+        border-bottom-right-radius: 50px;
+        margin-right: -30px;
+        z-index: 1;
       }
 
-      .section-content {
-        flex: 1;
-        border: 1px dashed #ccc;
-        border-radius: 12px;
-        padding: 18px 15px;
-        color: #222;
-        text-align: center;
-        background-color: #fafafa;
-        min-height: 0;
-        height: auto;
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
-        overflow-y: auto;
-      }
-
-      .quiz-btn,
-      .add-btn {
-        background-color: #1e3a5f;
+      .sidebar .help button {
+        background: #18417f;
         color: white;
         border: none;
         border-radius: 8px;
-        padding: 10px 15px;
-        margin-top: 15px;
+        padding: 10px;
+        margin-top: 360px;
+        font-size: 18px;
         cursor: pointer;
-        font-size: 0.95rem;
+        transition: background 0.18s, color 0.18s;
+      }
+
+      .sidebar .help button:hover {
+        background: #18417f;
+        color: black;
+      }
+
+      .main-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        background-color: #f5f6fa;
+      }
+
+      .header {
+        background-color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .header .welcome {
+        color: black;
+        padding-left: 50px;
+      }
+
+      .header .profile {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        display: inline-flex;
+        align-items: center;
+        background-color: #C9D9FF;
+        padding: 8px 32px 8px 20px;
+        border-radius: 50px;
+        border: 2px solid black;
+        min-width: 300px;
+      }
+
+      .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #b0c4de;
+        margin-right: 10px;
+        border: 2px solid black;
+      }
+
+      .dashboard {
+        display: flex;
+        flex: 1;
+        padding: 40px;
+        gap: 30px;
+        align-items: stretch; /* Ensure children have same height */
+      }
+
+      .quiz-section,
+      .side-panel {
+        flex: 1;
+        background-color: #c9d9ff;
+        border-radius: 18px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        height: 100%; /* Force same height as parent flex */
+        overflow-y: auto;
+        max-height: calc(100vh - 140px);
+      }
+
+      .quiz-section h2 {
+        text-align: center;
+      }
+
+      .quiz-section h2,
+      .side-panel h2 {
+        color: black;
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      .quiz-section #quizList,
+      .side-panel #newsList {
+        flex: 1;
+        overflow-y: auto;
+      }
+
+      .quiz-section .add-btn,
+      .side-panel .add-btn {
+        background-color: #C9D9FF;
+        color: black;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 15px;
+        cursor: pointer;
+        font-size: 15px;
         transition: 0.3s;
         align-self: flex-end;
       }
 
-      .quiz-btn:hover,
-      .add-btn:hover {
-        background-color: #2b4d7c;
+      .quiz-section .add-btn:hover,
+      .side-panel .add-btn:hover {
+        background-color: #C9D9FF;
       }
 
-      /* MODALS */
+      .side-panel .tabs {
+        display: flex;
+        gap: 100px;
+        margin-bottom: 10px;
+      }
+
+      .side-panel .tabs button {
+        background: #c9d9ff;
+        color: black;
+        border: none;
+        border-radius: 8px;
+        padding: 8px 22px;
+        font-size: 17px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.18s, color 0.18s;
+        outline: none;
+      }
+
+      .side-panel .tabs button.active {
+        background: white;
+        color: black;
+      }
+
+      .side-panel .tabs button:not(.active):hover {
+        background: #b7c9f2;
+        color: #1e3a5f;
+      }
+
       .modal {
         display: none;
         position: fixed;
@@ -304,14 +269,100 @@
         align-items: center;
       }
 
-      .modal-content {
-        background-color: #dce4ff;
-        border-radius: 20px;
-        padding: 25px;
-        width: 420px;
-        text-align: center;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        animation: fadeIn 0.3s ease;
+      /* Quiz Modal Redesign */
+      #quizModal .modal-content {
+        background: #e6e6e6;
+        border-radius: 18px;
+        border: 2px solid #7c6cf7;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        padding: 32px 28px 24px 28px;
+        max-width: 600  px;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      #quizModal h3 {
+        font-size: 1.35rem;
+        font-weight: 600;
+        margin-bottom: 18px;
+        color: #222;
+        align-self: flex-start;
+      }
+      #quizModal .quiz-form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        align-items: center;
+      }
+      #quizModal .quiz-form input[type="text"]#quizQuestion {
+        width: 100%;
+        padding: 14px 16px;
+        border-radius: 15px;
+        border: none;
+        background: #fff;
+        font-size: 1.18rem;
+        font-weight: 500;
+        margin-bottom: 10px;
+      }
+      #quizModal .options {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px 22px;
+        width: 100%;
+        margin-bottom: 10px;
+      }
+      #quizModal .options input[type="text"] {
+        background: #fff;
+        border-radius: 15px;
+        border: none;
+        padding: 12px 16px;
+        font-size: 1.08rem;
+        font-weight: 500;
+        box-shadow: 0 1px 4px #bbb;
+      }
+      #quizModal .correct-row {
+        display: flex;
+        justify-content: center;
+        gap: 22px;
+        margin-bottom: 10px;
+      }
+      #quizModal .correct-row label {
+        background: #fff;
+        border-radius: 12px;
+        padding: 8px 18px;
+        font-size: 1.08rem;
+        font-weight: 500;
+        box-shadow: 0 1px 4px #bbb;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      #quizModal .quiz-form button[type="button"] {
+        width: 140px;
+        background: #c9d9ff;
+        color: #222;
+        border: 1px solid #888;
+        border-radius: 18px;
+        padding: 10px 0;
+        font-size: 1.08rem;
+        font-weight: 600;
+        box-shadow: 0 1px 4px #bbb;
+        margin-top: 10px;
+      }
+      /* Hide default radio */
+      #quizModal .correct-row input[type="radio"] {
+        accent-color: #7c6cf7;
+        margin-right: 6px;
+      }
+      /* Responsive */
+      @media (max-width: 500px) {
+        #quizModal .modal-content {
+          max-width: 98vw;
+          padding: 18px 6vw;
+        }
       }
 
       .modal-content h3 {
@@ -326,89 +377,6 @@
         color: #333;
       }
 
-      /* QUIZ MODAL DESIGN */
-      .quiz-form input[type="text"] {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 15px;
-        border: none;
-        border-radius: 10px;
-        text-align: center;
-        background-color: #f3f3f3;
-        font-size: 1rem;
-      }
-
-      .options {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        margin-bottom: 15px;
-      }
-
-      .options input {
-        background-color: #fff;
-        border: none;
-        border-radius: 10px;
-        padding: 10px;
-        text-align: center;
-        font-size: 0.95rem;
-        box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.1);
-      }
-
-      .quiz-form button {
-        background-color: #b7c9f2;
-        border: 1px solid #333;
-        border-radius: 20px;
-        padding: 8px 25px;
-        font-size: 1rem;
-        cursor: pointer;
-        align-self: flex-end;
-      }
-
-      .quiz-form button:hover {
-        background-color: #a4baf2;
-      }
-
-      /* EVENT/NEWS MODAL DESIGN */
-      .upload-box {
-        border: 2px dashed #bbb;
-        border-radius: 10px;
-        background-color: #f3f3f3;
-        padding: 25px;
-        margin-bottom: 15px;
-        font-size: 0.95rem;
-        color: #555;
-      }
-
-      .event-form input[type="text"] {
-        width: 100%;
-        padding: 10px;
-        border-radius: 8px;
-        border: none;
-        text-align: center;
-        background-color: black;
-        color: white;
-        margin-bottom: 15px;
-      }
-
-      .event-buttons {
-        display: flex;
-        justify-content: space-around;
-      }
-
-      .event-buttons button {
-        background-color: #b7c9f2;
-        border: 1px solid #333;
-        border-radius: 20px;
-        padding: 8px 20px;
-        cursor: pointer;
-        font-size: 0.95rem;
-      }
-
-      .event-buttons button:hover {
-        background-color: #a4baf2;
-      }
-
       @keyframes fadeIn {
         from {
           opacity: 0;
@@ -420,463 +388,701 @@
         }
       }
 
-      #quizList,
-      #newsList {
+      /* Add spacing between quiz table rows */
+      .quiz-section table tr {
+        height: 38px;
+        background: #c9d9ff;
+      }
+      .quiz-section table tr + tr {
+        margin-top: 12px;
+      }
+      .quiz-section table td {
+        padding: 14px 10px;
+        vertical-align: middle;
+      }
+      .quiz-section table th {
+        padding: 14px 10px;
+      }
+      .quiz-section table {
+        border-spacing: 0 12px;
         width: 100%;
-        min-height: 360px;
-        max-height: 520px;
-        border: none;
-        background: transparent;
-        padding: 0;
-        margin: 0;
-        overflow-y: visible;
-        text-align: center;
+        border-collapse: separate;
+      }
+      .quiz-section th,
+      td {
+        border-top: 3px solid black;
+        border-bottom: 3px solid black;
+        border-left: none;
+        border-right: none;
+        padding: 10px;
+      }
+
+      /* News Modal Redesign */
+      #newsModal .modal-content {
+        background: #e6e6e6;
+        border-radius: 18px;
+        border: 2px solid #7c6cf7;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        padding: 32px 28px 24px 28px;
+        max-width: 340px;
+        margin: auto;
         display: flex;
-        align-items: flex-start;
+        flex-direction: column;
+        align-items: center;
+      }
+      #newsModal .event-form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        align-items: center;
+      }
+      #newsModal .upload-box {
+        width: 100%;
+        background: #fff;
+        border-radius: 15px;
+        padding: 16px 10px;
+        font-size: 1.18rem;
+        font-weight: 500;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      #newsModal input[type="file"] {
+        display: none;
+      }
+      #newsModal .upload-label {
+        display: block;
+        background: #c9d9ff;
+        color: #222;
+        border: 1px solid #888;
+        border-radius: 15px;
+        padding: 8px 0;
+        font-size: 1.08rem;
+        font-weight: 500;
+        box-shadow: 0 1px 4px #bbb;
+        cursor: pointer;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+      #newsModal input[type="text"]#newsTitle {
+        width: 100%;
+        padding: 14px 16px;
+        border-radius: 15px;
+        border: none;
+        background: #fff;
+        font-size: 1.18rem;
+        font-weight: 500;
+        margin-bottom: 10px;
+      }
+      #newsModal input[type="text"]#newsDesc {
+        width: 100%;
+        min-height: 60px;
+        padding: 14px 16px;
+        border-radius: 15px;
+        border: none;
+        background: #fff;
+        font-size: 1.18rem;
+        font-weight: 500;
+        margin-bottom: 10px;
+      }
+      #newsModal input[type="date"] {
+        width: 100%;
+        padding: 10px 16px;
+        border-radius: 15px;
+        border: none;
+        background: #fff;
+        font-size: 1.08rem;
+        font-weight: 500;
+        margin-bottom: 10px;
+      }
+      #newsModal .event-buttons {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+        margin-top: 10px;
+      }
+      #newsModal .event-buttons-row {
+        display: flex;
+        gap: 18px;
+        width: 100%;
         justify-content: center;
       }
-
-      .quiz-item,
-      .news-item {
-        transition: box-shadow 0.2s, background 0.2s;
-        border-radius: 10px;
-        padding: 10px 8px;
+      #newsModal .event-buttons button {
+        width: 140px;
+        background: #c9d9ff;
+        color: #222;
+        border: 1px solid #888;
+        border-radius: 18px;
+        padding: 10px 0;
+        font-size: 1.08rem;
+        font-weight: 600;
+        box-shadow: 0 1px 4px #bbb;
         cursor: pointer;
       }
-      .quiz-item:hover,
-      .news-item:hover {
-        background: #eaf1ff;
-        box-shadow: 0 2px 8px rgba(30, 58, 95, 0.1);
-      }
-
-      @media (max-width: 1100px) {
-        .content {
-          flex-direction: column;
-          gap: 18px;
-          padding: 18px;
-        }
-        .left-container,
-        .right-container {
-          min-width: 0;
-          width: 100%;
-          margin-bottom: 18px;
-        }
-      }
-      @media (max-width: 800px) {
-        .main {
-          flex-direction: column;
-          height: auto;
-        }
-        .sidebar {
-          position: static;
-          width: 100%;
-          height: auto;
-          flex-direction: row;
-          padding: 0;
-          border-top: none;
-          justify-content: flex-start;
-          align-items: center;
-        }
-        .content {
-          padding: 8px;
-          gap: 10px;
-          height: auto;
-          overflow-y: visible;
-        }
+      #newsModal .event-buttons button:last-child {
+        width: 220px;
       }
       @media (max-width: 500px) {
-        .left-header h1 {
-          font-size: 1rem;
-        }
-        .center-header h2 {
-          font-size: 0.95rem;
-        }
-        .right-header {
-          padding: 2px 6px;
-        }
-        .left-container h2,
-        .right-container h2 {
-          font-size: 1.1rem;
+        #newsModal .modal-content {
+          max-width: 98vw;
+          padding: 18px 6vw;
         }
       }
 
-      .quiz-action-btn {
-        width: 38px;
-        height: 38px;
+      /* Announcement Card Redesign */
+      .announcement-card {
+        background: #fff;
+        border: 2px solid #7c6cf7;
+        border-radius: 16px;
+        box-shadow: 0 2px 8px rgba(124, 108, 247, 0.08);
+        padding: 18px 22px 12px 22px;
+        margin-bottom: 18px;
         display: flex;
+        flex-direction: column;
+        gap: 8px;
+        position: relative;
+      }
+      .announcement-card h4 {
+        font-size: 1.08rem;
+        font-weight: 700;
+        margin-bottom: 6px;
+        color: #222;
+      }
+      .announcement-card p {
+        font-size: 1rem;
+        color: #222;
+        margin-bottom: 10px;
+        line-height: 1.4;
+      }
+      .announcement-card .actions {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
         align-items: center;
-        justify-content: center;
-        font-size: 1.3rem;
-        padding: 0;
-        margin: 0;
-        border-radius: 8px;
-        border: none;
-        background: #b7c9f2;
-        color: #1e3a5f;
-        transition: background 0.2s;
+        margin-top: 2px;
       }
-      .quiz-action-btn:hover {
-        background: #a4baf2;
-      }
-
-      .news-tab-btn {
-        background: #eaf1ff;
-        color: #1e3a5f;
+      .announcement-card .actions button {
+        background: none;
         border: none;
-        border-radius: 8px 8px 0 0;
-        padding: 8px 22px;
-        font-size: 1.05rem;
-        font-weight: 600;
+        font-size: 24px;
+        color: #222;
         cursor: pointer;
-        transition: background 0.18s, color 0.18s;
-        outline: none;
+        padding: 0 2px;
+        transition: color 0.18s;
       }
-      .news-tab-btn.active {
-        background: #1e3a5f;
-        color: #ffd700;
-      }
-      .news-tab-btn:not(.active):hover {
-        background: #b7c9f2;
-        color: #1e3a5f;
+      .announcement-card .actions button:hover {
+        color: #7c6cf7;
       }
     </style>
   </head>
   <body>
-    <header>
-      <div class="left-header">
-        <img src="image/EdUpdate-logo.png" alt="EdUpdate Logo" />
-        <h1>EdUpdate<br /><span>Admin Dashboard</span></h1>
-      </div>
-      <div class="center-header">
-        <h2>Welcome Back, Prof. Bernabe!</h2>
-        <p>Exclusive Offers Await!</p>
-      </div>
-      <div class="right-header">
-        <img src="image/robot.png" alt="Admin Profile" />
-        <div class="name">
-          <strong>Prof. Bernabe</strong>
-          <span>Admin</span>
+    <div class="container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="logo">
+          <img src="image/EdUpdate-logo.png" alt="EdUpdate Logo" />
+          <div class="logo-text">
+            <h2>EdUpdate</h2>
+            <p>Admin Dashboard</p>
+          </div>
         </div>
-      </div>
-    </header>
 
-    <div class="main">
-      <div class="sidebar">
-        <div class="menu">
-          <a href="#" class="active" onclick="showSection('home')">Dashboard</a>
-          <a href="#" onclick="showSection('createAccount')">Create Account</a>
-          <a href="index.html"> Log Out</a>
+        <nav>
+          <a href="#" onclick="showSection('home')"><i class="bi bi-grid-fill"></i> Dashboard</a>
+          <a href="#" onclick="showSection('createAccount')"
+            ><i class="bi bi-person-fill"></i> Create Account</a
+          >
+          <a href="index.html"><i class="bi bi-door-open-fill"></i> Log Out</a>
+        </nav>
+        <div class="help">
+          <button onclick="openModal('helpModal')"><i class="bi bi-question-circle-fill"></i> Help</button>
         </div>
-        <div class="help" onclick="openModal('helpModal')" style="cursor:pointer;display:flex;align-items:center;justify-content:center;text-align:center;">
-          <span style="flex:1; color:white">Help</span>
-          <span style="border-left:2px solid #fbfbfc;height:28px;margin:0 10px;"></span>
-          <span style="font-size:1.5rem;font-weight:bold;letter-spacing:2px;">?</span>
-        </div>
-      </div>
-
-      <div
-        id="homeSection"
-        style="display: flex; width: 100%; flex-direction: column"
-      >
-        <div class="content">
-          <div class="left-container">
+      </aside>
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Header -->
+        <header class="header">
+          <div class="welcome">
+            <p style="font-size: 20px;">Welcome Back, Prof. Bernabe!</p>
+            <h3 style="font-size: 30px;">Exclusive Offers Await!</h3>
+          </div>
+          <div class="profile">
+            <img
+              src="image/robot.png"
+              alt="Admin Profile"
+              class="avatar"
+            />
+            <div>
+              <p style="margin-bottom: 2px"><strong>Prof. Bernabe</strong></p>
+              <small>Admin</small>
+            </div>
+          </div>
+        </header>
+        <!-- Dashboard Content -->
+        <div class="dashboard">
+          <!-- Quiz Section -->
+          <section class="quiz-section">
             <h2>Quiz</h2>
-            <div class="section-content">
-              <div id="quizList">
-                <span style="margin: auto; font-size: 1.1rem; color: #222"
-                  >Create and manage quizzes for your students.</span
-                >
-              </div>
+            <div id="quizList"></div>
+            <button class="add-btn" onclick="openModal('quizModal')"><i class="bi bi-plus-circle" style="font-size: 30px;"></i></button>
+          </section>
+          <!-- Right Panel -->
+          <section class="side-panel">
+            <div class="tabs">
+              <button id="tabEvent" onclick="toggleNewsTab('event')">
+                Events
+              </button>
+              <button id="tabNews" onclick="toggleNewsTab('news')">News</button>
+              <button
+                id="tabAnnouncement"
+                class="active"
+                onclick="toggleNewsTab('announcement')"
+              >
+                Announcement
+              </button>
             </div>
-             <button
-              class="quiz-btn"
-              style="margin-bottom: 15px; align-self: flex-end"
-              onclick="openModal('quizModal')"
-            >
-              Add Quiz
-            </button>
-          </div>
-          <div class="right-container">
-            <h2>Event, News, & Announcements</h2>
-            <div style="display:flex;gap:18px;margin-bottom:10px;">
-              <button id="tabAll" class="news-tab-btn active" onclick="toggleNewsTab('all')">All</button>
-              <button id="tabEvent" class="news-tab-btn" onclick="toggleNewsTab('event')">Event</button>
-              <button id="tabNews" class="news-tab-btn" onclick="toggleNewsTab('news')">News</button>
-              <button id="tabAnnouncement" class="news-tab-btn" onclick="toggleNewsTab('announcement')">Announcement</button>
-            </div>
-            <div class="section-content">
-              <div id="newsList">
-                <span style="margin: auto; font-size: 1.1rem; color: #222"
-                  >No announcements yet. Add updates here!</span
-                >
-              </div>
-            </div>
-            <button
-              class="add-btn"
-              style="margin-bottom: 15px; align-self: flex-end"
-              onclick="openModal('newsModal')"
-            >
-              Add News
-            </button>
-          </div>
+            <div id="newsList"></div>
+            <button class="add-btn" onclick="openModal('newsModal')"><i class="bi bi-plus-circle" style="font-size: 30px;"></i></button>
+          </section>
         </div>
-      </div>
-
-      <!-- CREATE ACCOUNT SECTION (hidden by default) -->
-      <div
-        id="createAccountSection"
-        style="
-          display: none;
-          width: 100%;
-          flex-direction: column;
-          overflow-y: auto;
-          max-height: 100vh;
-        "
-      >
+        <!-- CREATE ACCOUNT SECTION (hidden by default) -->
         <div
+          id="createAccountSection"
           style="
-            flex: 1;
-            background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin-bottom: 20px;
+            display: none;
+            width: 100%;
+            flex-direction: column;
+            overflow-y: auto;
+            max-height: 90vh;
+            padding: 50px;
           "
         >
-          <h2 style="color: #1e3a5f; margin-bottom: 15px">
-            Create Student Account
-          </h2>
-          <form
-            id="createStudentForm"
+          <div
             style="
+              background: #ededed;
+              border-radius: 15px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+              padding: 20px;
+              margin-bottom: 20px;
               display: flex;
-              flex-direction: column;
-              gap: 10px;
+              justify-content: space-between;
               align-items: center;
+              border: 1px solid #aaa;
             "
           >
-            <input
-              id="stu_no"
-              type="text"
-              placeholder="Student No."
-              style="
-                width: 80%;
-                padding: 10px;
-                border-radius: 8px;
-                border: none;
-                background: #f3f3f3;
-                text-align: center;
-              "
-            />
-            <input
-              id="stu_name"
-              type="text"
-              placeholder="Full Name"
-              style="
-                width: 80%;
-                padding: 10px;
-                border-radius: 8px;
-                border: none;
-                background: #f3f3f3;
-                text-align: center;
-              "
-            />
-            <input
-              id="stu_contact"
-              type="text"
-              placeholder="Contact No."
-              style="
-                width: 80%;
-                padding: 10px;
-                border-radius: 8px;
-                border: none;
-                background: #f3f3f3;
-                text-align: center;
-              "
-            />
-            <input
-              id="stu_email"
-              type="email"
-              placeholder="E-Mail"
-              style="
-                width: 80%;
-                padding: 10px;
-                border-radius: 8px;
-                border: none;
-                background: #f3f3f3;
-                text-align: center;
-              "
-            />
-            <input
-              id="stu_password"
-              type="password"
-              placeholder="Password"
-              style="
-                width: 80%;
-                padding: 10px;
-                border-radius: 8px;
-                border: none;
-                background: #f3f3f3;
-                text-align: center;
-              "
-            />
-            <div style="display: flex; gap: 10px; margin-top: 8px">
-              <button type="button" class="add-btn" onclick="createStudent()">
-                Create Student
-              </button>
-              <button
-                type="button"
-                class="quiz-btn"
-                onclick="showSection('home')"
+            <div>
+              <h2
+                style="font-size: 1.3rem; font-weight: 700; margin-bottom: 10px"
               >
-                Cancel
-              </button>
+                ADMIN PROFILE:
+              </h2>
+              <p style="font-size: 1.08rem; margin-bottom: 2px">
+                <b>Student No:</b> 21-03XXX
+              </p>
+              <p style="font-size: 1.08rem; margin-bottom: 2px">
+                <b>Name:</b> Mari Bernabe
+              </p>
+              <p style="font-size: 1.08rem; margin-bottom: 2px">
+                <b>Contact Number:</b> 09XX XXX XXXX
+              </p>
+              <p style="font-size: 1.08rem; margin-bottom: 2px">
+                <b>E-mail:</b> mbernabe@edubadge.edu.ph
+              </p>
             </div>
-            <p
-              id="createMsg"
-              style="color: #1e3a5f; font-weight: 600; margin-top: 8px"
-            ></p>
-          </form>
-        </div>
-        <!-- Student List Table -->
-        <div
-          style="
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            padding: 20px;
-          "
-        >
-          <h3 style="color: #1e3a5f; margin-bottom: 10px">Student List</h3>
-          <div style="overflow-x: auto">
-            <table
-              id="studentTable"
-              style="width: 100%; border-collapse: collapse"
+            <div
+              style="
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                border: 2px solid #888;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+                background: #fff;
+              "
             >
-              <thead>
-                <tr style="background: #f3f3f3; color: #1e3a5f">
-                  <th style="padding: 8px; border-bottom: 1px solid #ddd; text-align: center;">Student No.</th>
-                  <th style="padding: 8px; border-bottom: 1px solid #ddd; text-align: center;">Name</th>
-                  <th style="padding: 8px; border-bottom: 1px solid #ddd; text-align: center;">Contact No.</th>
-                  <th style="padding: 8px; border-bottom: 1px solid #ddd; text-align: center;">E-Mail</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- Students will be inserted here -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- QUIZ MODAL -->
-    <div id="quizModal" class="modal">
-      <div class="modal-content">
-        <span class="close-btn" onclick="closeModal('quizModal')">&times;</span>
-        <h3>Questions</h3>
-        <form class="quiz-form" id="quizForm">
-          <input type="text" id="quizQuestion" placeholder="Enter question" />
-          <div class="options">
-            <input type="text" id="optA" placeholder="A." />
-            <input type="text" id="optB" placeholder="B." />
-            <input type="text" id="optC" placeholder="C." />
-            <input type="text" id="optD" placeholder="D." />
+              <img
+                src="image/robot.png"
+                alt="Profile"
+                style="
+                  width: 100px;
+                  height: 100px;
+                  border-radius: 50%;
+                  object-fit: cover;
+                "
+              />
+            </div>
           </div>
           <div
             style="
+              background: #c9d9ff;
+              border-radius: 15px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+              padding: 30px 20px;
               display: flex;
-              justify-content: center;
-              gap: 18px;
-              margin-bottom: 10px;
+              flex-direction: column;
+              align-items: center;
+              border: 1px solid #aaa;
             "
           >
-            <label
-              ><input
-                type="radio"
-                name="correctOpt"
-                id="correctOptA"
-                value="A"
-              />
-              A</label
+            <form
+              id="createStudentForm"
+              style="
+                width: 100%;
+                max-width: 600px;
+                display: flex;
+                flex-direction: column;
+                gap: 22px;
+                align-items: center;
+              "
             >
-            <label
-              ><input
-                type="radio"
-                name="correctOpt"
-                id="correctOptB"
-                value="B"
-              />
-              B</label
-            >
-            <label
-              ><input
-                type="radio"
-                name="correctOpt"
-                id="correctOptC"
-                value="C"
-              />
-              C</label
-            >
-            <label
-              ><input
-                type="radio"
-                name="correctOpt"
-                id="correctOptD"
-                value="D"
-              />
-              D</label
-            >
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 100%;
+                  gap: 18px;
+                "
+              >
+                <label
+                  style="
+                    width: 180px;
+                    background: #ededed;
+                    padding: 8px 0;
+                    border-radius: 15px;
+                    text-align: center;
+                    font-weight: 500;
+                    border: 1px solid #888;
+                  "
+                  >Student No.</label
+                >
+                <input
+                  id="stu_no"
+                  type="text"
+                  style="
+                    width: 220px;
+                    padding: 10px;
+                    border-radius: 12px;
+                    border: none;
+                    background: #fff;
+                    text-align: center;
+                    box-shadow: 0 1px 4px #bbb;
+                  "
+                />
+              </div>
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 100%;
+                  gap: 18px;
+                "
+              >
+                <label
+                  style="
+                    width: 180px;
+                    background: #ededed;
+                    padding: 8px 0;
+                    border-radius: 15px;
+                    text-align: center;
+                    font-weight: 500;
+                    border: 1px solid #888;
+                  "
+                  >Name</label
+                >
+                <input
+                  id="stu_name"
+                  type="text"
+                  style="
+                    width: 220px;
+                    padding: 10px;
+                    border-radius: 12px;
+                    border: none;
+                    background: #fff;
+                    text-align: center;
+                    box-shadow: 0 1px 4px #bbb;
+                  "
+                />
+              </div>
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 100%;
+                  gap: 18px;
+                "
+              >
+                <label
+                  style="
+                    width: 180px;
+                    background: #ededed;
+                    padding: 8px 0;
+                    border-radius: 15px;
+                    text-align: center;
+                    font-weight: 500;
+                    border: 1px solid #888;
+                  "
+                  >Contact Number</label
+                >
+                <input
+                  id="stu_contact"
+                  type="text"
+                  style="
+                    width: 220px;
+                    padding: 10px;
+                    border-radius: 12px;
+                    border: none;
+                    background: #fff;
+                    text-align: center;
+                    box-shadow: 0 1px 4px #bbb;
+                  "
+                />
+              </div>
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 100%;
+                  gap: 18px;
+                "
+              >
+                <label
+                  style="
+                    width: 180px;
+                    background: #ededed;
+                    padding: 8px 0;
+                    border-radius: 15px;
+                    text-align: center;
+                    font-weight: 500;
+                    border: 1px solid #888;
+                  "
+                  >E-mail</label
+                >
+                <input
+                  id="stu_email"
+                  type="email"
+                  style="
+                    width: 220px;
+                    padding: 10px;
+                    border-radius: 12px;
+                    border: none;
+                    background: #fff;
+                    text-align: center;
+                    box-shadow: 0 1px 4px #bbb;
+                  "
+                />
+              </div>
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 100%;
+                  gap: 18px;
+                "
+              >
+                <label
+                  style="
+                    width: 180px;
+                    background: #ededed;
+                    padding: 8px 0;
+                    border-radius: 15px;
+                    text-align: center;
+                    font-weight: 500;
+                    border: 1px solid #888;
+                  "
+                  >Password</label
+                >
+                <input
+                  id="stu_password"
+                  type="password"
+                  placeholder="Password"
+                  style="
+                    width: 220px;
+                    padding: 10px;
+                    border-radius: 12px;
+                    border: none;
+                    background: #fff;
+                    text-align: center;
+                    box-shadow: 0 1px 4px #bbb;
+                  "
+                />
+              </div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: center;
+                  width: 100%;
+                  margin-top: 18px;
+                "
+              >
+                <button
+                  type="button"
+                  class="add-btn"
+                  style="
+                    width: 180px;
+                    background: #ededed;
+                    color: #222;
+                    border: 1px solid #888;
+                    border-radius: 15px;
+                    padding: 8px 0;
+                    font-size: 1.08rem;
+                    font-weight: 500;
+                    box-shadow: 0 1px 4px #bbb;
+                  "
+                  onclick="createStudent()"
+                >
+                  Create
+                </button>
+              </div>
+              <p
+                id="createMsg"
+                style="color: #1e3a5f; font-weight: 600; margin-top: 8px"
+              ></p>
+            </form>
           </div>
-          <button type="button" onclick="createQuiz()">Create</button>
-        </form>
-      </div>
-    </div>
-
-    <!-- NEWS MODAL -->
-    <div id="newsModal" class="modal">
-      <div class="modal-content">
-        <span class="close-btn" onclick="closeModal('newsModal')">&times;</span>
-        <form class="event-form" id="newsForm">
-          <div class="upload-box">
-            Drop files here or click the button to upload.
+          <!-- Student List Table -->
+          <div
+            style="
+              background: white;
+              border-radius: 15px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+              padding: 20px;
+            "
+          >
+            <h3 style="color: #1e3a5f; margin-bottom: 10px">Student List</h3>
+            <div style="overflow-x: auto">
+              <table
+                id="studentTable"
+                style="width: 100%; border-collapse: collapse"
+              >
+                <thead>
+                  <tr style="background: #f3f3f3; color: #1e3a5f">
+                    <th
+                      style="
+                        padding: 8px;
+                        border-bottom: 1px solid #ddd;
+                        text-align: center;
+                      "
+                    >
+                      Student No.
+                    </th>
+                    <th
+                      style="
+                        padding: 8px;
+                        border-bottom: 1px solid #ddd;
+                        text-align: center;
+                      "
+                    >
+                      Name
+                    </th>
+                    <th
+                      style="
+                        padding: 8px;
+                        border-bottom: 1px solid #ddd;
+                        text-align: center;
+                      "
+                    >
+                      Contact No.
+                    </th>
+                    <th
+                      style="
+                        padding: 8px;
+                        border-bottom: 1px solid #ddd;
+                        text-align: center;
+                      "
+                    >
+                      E-Mail
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Students will be inserted here -->
+                </tbody>
+              </table>
+            </div>
           </div>
-          <input
-            type="file"
-            id="newsImage"
-            accept="image/*"
-            style="margin-bottom: 10px"
-          />
-          <span
-            id="newsImageName"
-            style="font-size: 0.95em; color: #555"
-          ></span>
-          <input type="text" id="newsDesc" placeholder="description" />
-          <input type="date" id="newsScheduleDate" style="margin-bottom:10px;" placeholder="Schedule Date (optional)" />
-          <div class="event-buttons">
-            <button type="button" onclick="createNews('event')">Events</button>
-            <button type="button" onclick="createNews('news')">News</button>
-            <button type="button" onclick="createNews('announcement')">
-              Announcement
-            </button>
+        </div>
+        <!-- QUIZ MODAL -->
+        <div id="quizModal" class="modal">
+          <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('quizModal')">&times;</span>
+            <h3>Question</h3>
+            <form class="quiz-form" id="quizForm">
+              <input type="text" id="quizQuestion" placeholder="Question" />
+              <div class="options">
+                <input type="text" id="optA" placeholder="A." />
+                <input type="text" id="optB" placeholder="B." />
+                <input type="text" id="optC" placeholder="C." />
+                <input type="text" id="optD" placeholder="D." />
+              </div>
+              <div class="correct-row">
+                <label><input type="radio" name="correctOpt" id="correctOptA" value="A" />A</label>
+                <label><input type="radio" name="correctOpt" id="correctOptB" value="B" />B</label>
+                <label><input type="radio" name="correctOpt" id="correctOptC" value="C" />C</label>
+                <label><input type="radio" name="correctOpt" id="correctOptD" value="D" />D</label>
+              </div>
+              <button type="button" onclick="createQuiz()">Create</button>
+            </form>
           </div>
-        </form>
-      </div>
+        </div>
+        <!-- NEWS MODAL -->
+        <div id="newsModal" class="modal">
+          <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('newsModal')">&times;</span>
+            <form class="event-form" id="newsForm">
+              <div class="upload-box">Drop files here or click the button to upload.</div>
+              <label for="newsImage" class="upload-label">Choose Image</label>
+              <input type="file" id="newsImage" accept="image/*" />
+              <input type="text" id="newsTitle" placeholder="Title" />
+              <input type="text" id="newsDesc" placeholder="Description" />
+              <input type="date" id="newsScheduleDate" placeholder="Schedule Date (optional)" />
+              <div class="event-buttons">
+                <div class="event-buttons-row">
+                  <button type="button" onclick="createNews('event')">Events</button>
+                  <button type="button" onclick="createNews('news')">News</button>
+                </div>
+                <button type="button" onclick="createNews('announcement')">Announcement</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- HELP MODAL -->
+        <div id="helpModal" class="modal">
+          <div
+            class="modal-content"
+            style="max-width: 400px; text-align: center"
+          >
+            <span class="close-btn" onclick="closeModal('helpModal')"
+              >&times;</span
+            >
+            <h3 style="margin-bottom: 16px; color: #1e3a5f">
+              Help &amp; Support
+            </h3>
+            <p style="font-size: 1.08rem; color: #222">
+              Need assistance?<br />Contact your system administrator or refer
+              to the user guide.<br /><br />For more help, email:
+              <a
+                href="mailto:support@edupdate.com"
+                style="color: #1e3a5f; text-decoration: underline"
+                >support@edupdate.com</a
+              >
+            </p>
+          </div>
+        </div>
+      </main>
     </div>
-
-    <!-- HELP MODAL -->
-    <div id="helpModal" class="modal">
-      <div class="modal-content" style="max-width:400px;text-align:center;">
-        <span class="close-btn" onclick="closeModal('helpModal')">&times;</span>
-        <h3 style="margin-bottom:16px;color:#1e3a5f;">Help &amp; Support</h3>
-        <p style="font-size:1.08rem;color:#222;">Need assistance?<br>Contact your system administrator or refer to the user guide.<br><br>For more help, email: <a href="mailto:support@edupdate.com" style="color:#1e3a5f;text-decoration:underline;">support@edupdate.com</a></p>
-      </div>
-    </div>
-
     <script>
       // Section switching
       function showSection(name) {
-        var home = document.getElementById("homeSection");
+        var home = document.querySelector(".dashboard");
         var create = document.getElementById("createAccountSection");
         if (name === "createAccount") {
           home.style.display = "none";
@@ -886,14 +1092,12 @@
           create.style.display = "none";
           home.style.display = "flex";
         }
-        // update active link styling
-        document.querySelectorAll(".menu a").forEach(function (a) {
+        document.querySelectorAll(".sidebar nav a").forEach(function (a) {
           a.classList.remove("active");
         });
-        var links = document.querySelectorAll(".menu a");
+        var links = document.querySelectorAll(".sidebar nav a");
         links.forEach(function (a) {
           if (
-            a.onclick &&
             a.getAttribute("onclick") &&
             a.getAttribute("onclick").includes(name)
           )
@@ -901,156 +1105,43 @@
         });
       }
 
-      // Render student table
-      function renderStudentTable() {
-        var students = JSON.parse(localStorage.getItem("students") || "{}");
-        var tbody = document.querySelector("#studentTable tbody");
-        tbody.innerHTML = "";
-        var keys = Object.keys(students);
-        if (keys.length === 0) {
-          var tr = document.createElement("tr");
-          var td = document.createElement("td");
-          td.colSpan = 4;
-          td.style.textAlign = "center";
-          td.textContent = "No students found.";
-          tr.appendChild(td);
-          tbody.appendChild(tr);
-          return;
-        }
-        keys.forEach(function (no) {
-          var s = students[no];
-          var tr = document.createElement("tr");
-          tr.innerHTML =
-            '<td style="padding:8px; border-bottom:1px solid #eee;">' +
-            s.studentNo +
-            "</td>" +
-            '<td style="padding:8px; border-bottom:1px solid #eee;">' +
-            s.name +
-            "</td>" +
-            '<td style="padding:8px; border-bottom:1px solid #eee;">' +
-            s.contact +
-            "</td>" +
-            '<td style="padding:8px; border-bottom:1px solid #eee;">' +
-            s.email +
-            "</td>";
-          tbody.appendChild(tr);
-        });
-      }
-
-      // Create student and store in localStorage
-      function createStudent() {
-        var no = document.getElementById("stu_no").value.trim();
-        var name = document.getElementById("stu_name").value.trim();
-        var contact = document.getElementById("stu_contact").value.trim();
-        var email = document.getElementById("stu_email").value.trim();
-        var pass = document.getElementById("stu_password").value;
-        var msg = document.getElementById("createMsg");
-        if (!no || !name || !contact || !email || !pass) {
-          msg.style.color = "crimson";
-          msg.textContent = "Please fill all fields.";
-          return;
-        }
-        var students = JSON.parse(localStorage.getItem("students") || "{}");
-        if (students[no]) {
-          msg.style.color = "crimson";
-          msg.textContent = "Student No. already exists.";
-          return;
-        }
-        students[no] = {
-          studentNo: no,
-          name: name,
-          contact: contact,
-          email: email,
-          password: pass,
-        };
-        localStorage.setItem("students", JSON.stringify(students));
-        msg.style.color = "#1e3a5f";
-        msg.textContent = "Student created successfully.";
-        document.getElementById("createStudentForm").reset();
-        renderStudentTable();
-      }
-
-      function openModal(id) {
-        document.getElementById(id).style.display = "flex";
-      }
-
-      function closeModal(id) {
-        document.getElementById(id).style.display = "none";
-      }
-
-      window.onclick = function (e) {
-        if (e.target.classList.contains("modal")) {
-          e.target.style.display = "none";
-        }
-      };
-
-      // Quiz logic
-      function createQuiz() {
-        var q = document.getElementById("quizQuestion").value.trim();
-        var a = document.getElementById("optA").value.trim();
-        var b = document.getElementById("optB").value.trim();
-        var c = document.getElementById("optC").value.trim();
-        var d = document.getElementById("optD").value.trim();
-        var correct = document.querySelector(
-          'input[name="correctOpt"]:checked'
-        );
-        if (!q || !a || !b || !c || !d || !correct) {
-          alert("Please fill all quiz fields and select the correct answer.");
-          return;
-        }
-        var quizzes = JSON.parse(localStorage.getItem("quizzes") || "[]");
-        quizzes.push({
-          question: q,
-          options: [a, b, c, d],
-          correct: correct.value,
-        });
-        localStorage.setItem("quizzes", JSON.stringify(quizzes));
-        document.getElementById("quizForm").reset();
-        closeModal("quizModal");
-        renderQuizList();
-      }
-
+      // Render quiz table
       function renderQuizList() {
         var quizzes = JSON.parse(localStorage.getItem("quizzes") || "[]");
         var list = document.getElementById("quizList");
+        if (!list) return;
         if (!quizzes.length) {
           list.innerHTML = "<p>No quizzes yet. Create one!</p>";
           return;
         }
         var html =
-          '<table style="width:100%;background:#eaf1ff;border-radius:18px;box-shadow:0 2px 8px rgba(30,58,95,0.10);border-collapse:separate;border-spacing:0 10px;">';
-        html +=
-          '<thead><tr style="background:none;"><th style="text-align:left;padding:8px 12px;font-size:1.1rem;">Question</th><th style="text-align:center;padding:8px 12px;font-size:1.1rem;">Correct Answer</th><th style="width:80px;"></th></tr></thead><tbody>';
+          "<table><thead><tr><th>Question</th><th>Answer</th><th>Action</th></tr></thead><tbody>";
         quizzes.forEach(function (q, i) {
           html +=
-            '<tr class="quiz-item" style="background:white;border-radius:12px;box-shadow:0 1px 4px rgba(30,58,95,0.06);">' +
-            '<td style="padding:12px 10px;vertical-align:top;text-align:left;">' +
-            (q.question ? i + 1 + ". " + q.question + "<br>" : "") +
-            '<span style="display:inline-block;margin-left:10px;">A. ' +
+            "<tr>" +
+            "<td>" +
+            (i + 1) +
+            ". " +
+            q.question +
+            "<br>A. " +
             q.options[0] +
-            "</span> " +
-            '<span style="display:inline-block;margin-left:10px;">B. ' +
+            "<br>B. " +
             q.options[1] +
-            "</span><br>" +
-            '<span style="display:inline-block;margin-left:10px;">C. ' +
+            "<br>C. " +
             q.options[2] +
-            "</span> " +
-            '<span style="display:inline-block;margin-left:10px;">D. ' +
+            "<br>D. " +
             q.options[3] +
-            "</span>" +
             "</td>" +
-            '<td style="padding:12px 10px;vertical-align:middle;text-align:center;font-weight:bold;font-size:1.2rem;">' +
+            '<td style="text-align: center;">' +
             (q.correct || "A") +
             "</td>" +
-            '<td style="padding:12px 10px;vertical-align:middle;text-align:center;">' +
-            '<div style="display:flex;flex-direction:column;gap:8px;align-items:center;">' +
-            '<button class="add-btn quiz-action-btn" title="Edit" onclick="editQuiz(' +
+            '<td style="text-align: center;">' +
+            '<button class="bi bi-pencil-square" style="background-color: #C9D9FF; border: none; text-align: center; font-size: 30px;" onclick="editQuiz(' +
             i +
-            ')">\u270E</button>' +
-            '<button class="quiz-btn quiz-action-btn" title="Delete" onclick="deleteQuiz(' +
+            ')"></button> ' +
+            '<button class="bi bi-trash-fill" style="background-color: #C9D9FF; border: none; text-align: center; font-size: 30px;" onclick="deleteQuiz(' +
             i +
-            ')">🗑️</button>' +
-            "</div>" +
+            ')"></button>' +
             "</td>" +
             "</tr>";
         });
@@ -1058,6 +1149,38 @@
         list.innerHTML = html;
       }
 
+      // Quiz CRUD
+      function createQuiz() {
+        var question = document.getElementById("quizQuestion").value.trim();
+        var options = [
+          document.getElementById("optA").value.trim(),
+          document.getElementById("optB").value.trim(),
+          document.getElementById("optC").value.trim(),
+          document.getElementById("optD").value.trim(),
+        ];
+        var correct = document.querySelector(
+          'input[name="correctOpt"]:checked'
+        );
+        if (
+          !question ||
+          options.some(function (opt) {
+            return !opt;
+          }) ||
+          !correct
+        ) {
+          alert("Please fill all fields and select the correct answer.");
+          return;
+        }
+        var quizzes = JSON.parse(localStorage.getItem("quizzes") || "[]");
+        quizzes.push({
+          question: question,
+          options: options,
+          correct: correct.value,
+        });
+        localStorage.setItem("quizzes", JSON.stringify(quizzes));
+        renderQuizList();
+        closeModal("quizModal");
+      }
       function editQuiz(idx) {
         var quizzes = JSON.parse(localStorage.getItem("quizzes") || "[]");
         var q = quizzes[idx];
@@ -1066,197 +1189,237 @@
         document.getElementById("optB").value = q.options[1];
         document.getElementById("optC").value = q.options[2];
         document.getElementById("optD").value = q.options[3];
-        if (document.querySelector('input[name="correctOpt"]')) {
-          document
-            .querySelectorAll('input[name="correctOpt"]')
-            .forEach(function (radio) {
-              radio.checked = radio.value === (q.correct || "A");
-            });
-        }
+        document
+          .querySelectorAll('input[name="correctOpt"]')
+          .forEach(function (r) {
+            r.checked = r.value === q.correct;
+          });
         openModal("quizModal");
-        document.querySelector("#quizForm button").onclick = function () {
+        document.getElementById("quizForm").onsubmit = function (e) {
+          e.preventDefault();
           var question = document.getElementById("quizQuestion").value.trim();
-          var a = document.getElementById("optA").value.trim();
-          var b = document.getElementById("optB").value.trim();
-          var c = document.getElementById("optC").value.trim();
-          var d = document.getElementById("optD").value.trim();
+          var options = [
+            document.getElementById("optA").value.trim(),
+            document.getElementById("optB").value.trim(),
+            document.getElementById("optC").value.trim(),
+            document.getElementById("optD").value.trim(),
+          ];
           var correct = document.querySelector(
             'input[name="correctOpt"]:checked'
           );
-          if (!question || !a || !b || !c || !d || !correct) {
-            alert("Please fill all quiz fields and select the correct answer.");
+          if (
+            !question ||
+            options.some(function (opt) {
+              return !opt;
+            }) ||
+            !correct
+          ) {
+            alert("Please fill all fields and select the correct answer.");
             return;
           }
           quizzes[idx] = {
             question: question,
-            options: [a, b, c, d],
+            options: options,
             correct: correct.value,
           };
           localStorage.setItem("quizzes", JSON.stringify(quizzes));
-          document.getElementById("quizForm").reset();
-          closeModal("quizModal");
           renderQuizList();
-          document.querySelector("#quizForm button").onclick = createQuiz;
+          closeModal("quizModal");
+          document.getElementById("quizForm").onsubmit = null;
         };
       }
-
       function deleteQuiz(idx) {
         var quizzes = JSON.parse(localStorage.getItem("quizzes") || "[]");
-        if (confirm("Delete this quiz?")) {
-          quizzes.splice(idx, 1);
-          localStorage.setItem("quizzes", JSON.stringify(quizzes));
-          renderQuizList();
-        }
+        quizzes.splice(idx, 1);
+        localStorage.setItem("quizzes", JSON.stringify(quizzes));
+        renderQuizList();
       }
 
-      // News/Event/Announcement logic
-      var currentNewsTab = 'all';
+      // News/Announcement CRUD
+      var currentNewsTab = "announcement";
       function toggleNewsTab(type) {
         currentNewsTab = type;
-        document.querySelectorAll('.news-tab-btn').forEach(function(btn) {
-          btn.classList.remove('active');
+        document.querySelectorAll(".tabs button").forEach(function (btn) {
+          btn.classList.remove("active");
         });
-        if(type==='all') document.getElementById('tabAll').classList.add('active');
-        if(type==='event') document.getElementById('tabEvent').classList.add('active');
-        if(type==='news') document.getElementById('tabNews').classList.add('active');
-        if(type==='announcement') document.getElementById('tabAnnouncement').classList.add('active');
+        if (type === "event")
+          document.getElementById("tabEvent").classList.add("active");
+        if (type === "news")
+          document.getElementById("tabNews").classList.add("active");
+        if (type === "announcement")
+          document.getElementById("tabAnnouncement").classList.add("active");
         renderNewsList();
       }
-
-      function createNews(type) {
-        var desc = document.getElementById("newsDesc").value.trim();
-        var imgInput = document.getElementById("newsImage");
-        var scheduleDate = document.getElementById("newsScheduleDate").value;
-        var imgData = "";
-        if (imgInput && imgInput.files && imgInput.files[0]) {
-          var reader = new FileReader();
-          reader.onload = function (e) {
-            imgData = e.target.result;
-            saveNews(type, desc, imgData, scheduleDate);
-          };
-          reader.readAsDataURL(imgInput.files[0]);
-        } else {
-          saveNews(type, desc, "", scheduleDate);
+      function renderNewsList() {
+        var news = JSON.parse(localStorage.getItem("news") || "[]");
+        var list = document.getElementById("newsList");
+        if (!list) return;
+        var filtered =
+          currentNewsTab === "announcement"
+            ? news.filter(function (n) {
+                return n.type === "announcement";
+              })
+            : currentNewsTab === "event"
+            ? news.filter(function (n) {
+                return n.type === "event";
+              })
+            : currentNewsTab === "news"
+            ? news.filter(function (n) {
+                return n.type === "news";
+              })
+            : news;
+        if (!filtered.length) {
+          list.innerHTML = "<p>No announcements yet. Add updates here!</p>";
+          return;
         }
+        var html = "";
+        filtered
+  .slice()
+  .reverse()
+  .forEach(function (n, i) {
+    html +=
+      '<div class="announcement-card">' +
+      '<h4>' + (n.title || (n.type.charAt(0).toUpperCase() + n.type.slice(1) + ':')) + '</h4>' +
+      '<p>' + n.desc + '</p>' +
+      (n.schedule ? '<p style="font-size:0.98rem;color:#7c6cf7;margin-bottom:6px;"><b>Schedule:</b> ' + n.schedule + '</p>' : '') +
+      '<div class="actions">' +
+      '<button class="bi bi-pencil-square" onclick="editNews(' + i + ')"></button>' +
+      '<button class="bi bi-trash-fill" onclick="deleteNews(' + i + ')"></button>' +
+      '</div>' +
+      '</div>';
+  });
+        list.innerHTML = html;
       }
-
-      function saveNews(type, desc, imgData, scheduleDate) {
+      function createNews(type) {
+        var title = document.getElementById("newsTitle").value.trim();
+        var desc = document.getElementById("newsDesc").value.trim();
+        var schedule = document.getElementById("newsScheduleDate").value;
+        var imgInput = document.getElementById("newsImage");
+        var img = imgInput && imgInput.files[0] ? URL.createObjectURL(imgInput.files[0]) : "";
+        if (!title) {
+          alert("Please enter a title.");
+          return;
+        }
         if (!desc) {
           alert("Please enter a description.");
           return;
         }
         var news = JSON.parse(localStorage.getItem("news") || "[]");
-        news.push({
-          type: type,
-          desc: desc,
-          date: new Date().toLocaleString(),
-          img: imgData,
-          scheduleDate: scheduleDate || null,
-        });
+        news.push({ type: type, title: title, desc: desc, schedule: schedule, img: img });
         localStorage.setItem("news", JSON.stringify(news));
-        document.getElementById("newsForm").reset();
-        document.getElementById("newsImageName").textContent = "";
-        closeModal("newsModal");
         renderNewsList();
+        closeModal("newsModal");
       }
-
-      document
-        .getElementById("newsImage")
-        .addEventListener("change", function (e) {
-          var file = e.target.files[0];
-          document.getElementById("newsImageName").textContent = file
-            ? file.name
-            : "";
-        });
-
-      function renderNewsList() {
-        var news = JSON.parse(localStorage.getItem("news") || "[]");
-        var list = document.getElementById("newsList");
-        var filtered = currentNewsTab==='all' ? news : news.filter(function(n){return n.type===currentNewsTab;});
-        if (!filtered.length) {
-          list.innerHTML = "<p>No announcements yet. Add updates here!</p>";
-          return;
-        }
-        var html = '<table style="width:100%;background:#eaf1ff;border-radius:18px;box-shadow:0 2px 8px rgba(30,58,95,0.10);border-collapse:separate;border-spacing:0 10px;">';
-        html += '<thead><tr style="background:none;"><th style="text-align:left;padding:8px 12px;font-size:1.1rem;">Type & Description</th><th style="text-align:center;padding:8px 12px;font-size:1.1rem;">Image</th><th style="text-align:center;padding:8px 12px;font-size:1.1rem;">Schedule</th><th style="width:80px;"></th></tr></thead><tbody>';
-        filtered.slice().reverse().forEach(function (n, i) {
-          var idx = news.length - 1 - news.indexOf(n);
-          html += '<tr class="news-item" style="background:white;border-radius:12px;box-shadow:0 1px 4px rgba(30,58,95,0.06);">';
-          html += '<td style="padding:12px 10px;vertical-align:top;text-align:left;">';
-          html += '<strong>' + n.type.charAt(0).toUpperCase() + n.type.slice(1) + ':</strong> ' + n.desc + '</td>';
-          html += '<td style="padding:12px 10px;vertical-align:middle;text-align:center;font-size:0.98rem;">';
-          if (n.img) {
-            html += '<img src="' + n.img + '" alt="news image" style="max-width:80px;max-height:60px;display:block;margin:auto;border-radius:6px;">';
-          } else {
-            html += '-';
-          }
-          html += '</td>';
-          html += '<td style="padding:12px 10px;vertical-align:middle;text-align:center;font-size:0.98rem;">' + (n.scheduleDate ? n.scheduleDate : '-') + '</td>';
-          html += '<td style="padding:12px 10px;vertical-align:middle;text-align:center;">';
-          html += '<div style="display:flex;flex-direction:column;gap:8px;align-items:center;">';
-          html += '<button class="add-btn quiz-action-btn" title="Edit" onclick="editNews(' + idx + ')">\u270E</button>';
-          html += '<button class="quiz-btn quiz-action-btn" title="Delete" onclick="deleteNews(' + idx + ')">🗑️</button>';
-          html += '</div>';
-          html += '</td>';
-          html += '</tr>';
-        });
-        html += '</tbody></table>';
-        list.innerHTML = html;
-      }
-
       function editNews(idx) {
         var news = JSON.parse(localStorage.getItem("news") || "[]");
         var n = news[idx];
-        document.getElementById("newsDesc").value = n.desc;
-        document.getElementById("newsScheduleDate").value = n.scheduleDate || "";
         openModal("newsModal");
-        var btns = document.querySelectorAll("#newsForm .event-buttons button");
-        btns.forEach(function (btn) {
-          btn.onclick = function () {
-            var desc = document.getElementById("newsDesc").value.trim();
-            var scheduleDate = document.getElementById("newsScheduleDate").value;
-            if (!desc) {
-              alert("Please enter a description.");
-              return;
-            }
-            news[idx] = {
-              type: n.type,
-              desc: desc,
-              date: new Date().toLocaleString(),
-              img: n.img,
-              scheduleDate: scheduleDate || null,
-            };
-            localStorage.setItem("news", JSON.stringify(news));
-            document.getElementById("newsForm").reset();
-            closeModal("newsModal");
-            renderNewsList();
-            btns[0].onclick = function () {
-              createNews("event");
-            };
-            btns[1].onclick = function () {
-              createNews("news");
-            };
-            btns[2].onclick = function () {
-              createNews("announcement");
-            };
-          };
+        document.getElementById("newsTitle").value = n.title || "";
+        document.getElementById("newsDesc").value = n.desc || "";
+        document.getElementById("newsScheduleDate").value = n.schedule || "";
+        // Clear file input
+        document.getElementById("newsImage").value = "";
+        document.getElementById("newsForm").onsubmit = function (e) {
+          e.preventDefault();
+          var title = document.getElementById("newsTitle").value.trim();
+          var desc = document.getElementById("newsDesc").value.trim();
+          var schedule = document.getElementById("newsScheduleDate").value;
+          var imgInput = document.getElementById("newsImage");
+          var img = imgInput && imgInput.files[0] ? URL.createObjectURL(imgInput.files[0]) : n.img;
+          if (!title) {
+            alert("Please enter a title.");
+            return;
+          }
+          if (!desc) {
+            alert("Please enter a description.");
+            return;
+          }
+          news[idx] = { type: n.type, title: title, desc: desc, schedule: schedule, img: img };
+          localStorage.setItem("news", JSON.stringify(news));
+          renderNewsList();
+          closeModal("newsModal");
+          document.getElementById("newsForm").onsubmit = null;
+        };
+      }
+      function deleteNews(idx) {
+        var news = JSON.parse(localStorage.getItem("news") || "[]");
+        news.splice(idx, 1);
+        localStorage.setItem("news", JSON.stringify(news));
+        renderNewsList();
+      }
+
+      // Modal logic
+      function openModal(id) {
+        document.getElementById(id).style.display = "flex";
+      }
+      function closeModal(id) {
+        document.getElementById(id).style.display = "none";
+      }
+
+      // Student CRUD
+      function createStudent() {
+        var no = document.getElementById("stu_no").value.trim();
+        var name = document.getElementById("stu_name").value.trim();
+        var contact = document.getElementById("stu_contact").value.trim();
+        var email = document.getElementById("stu_email").value.trim();
+        var password = document.getElementById("stu_password").value.trim();
+        if (!no || !name || !contact || !email || !password) {
+          document.getElementById("createMsg").textContent =
+            "Please fill all fields.";
+          return;
+        }
+        var students = JSON.parse(localStorage.getItem("students") || "[]");
+        students.push({
+          no: no,
+          name: name,
+          contact: contact,
+          email: email,
+          password: password,
+        });
+        localStorage.setItem("students", JSON.stringify(students));
+        document.getElementById("createMsg").textContent = "Student created!";
+        renderStudentTable();
+      }
+      function renderStudentTable() {
+        var students = JSON.parse(localStorage.getItem("students") || "[]");
+        var tbody = document.querySelector("#studentTable tbody");
+        if (!tbody) return;
+        tbody.innerHTML = "";
+        students.forEach(function (s) {
+          var tr = document.createElement("tr");
+          tr.innerHTML =
+            '<td style="text-align:center;">' +
+            s.no +
+            "</td>" +
+            '<td style="text-align:center;">' +
+            s.name +
+            "</td>" +
+            '<td style="text-align:center;">' +
+            s.contact +
+            "</td>" +
+            '<td style="text-align:center;">' +
+            s.email +
+            "</td>";
+          tbody.appendChild(tr);
         });
       }
 
-      function deleteNews(idx) {
-        var news = JSON.parse(localStorage.getItem("news") || "[]");
-        if (confirm("Delete this item?")) {
-          news.splice(idx, 1);
-          localStorage.setItem("news", JSON.stringify(news));
-          renderNewsList();
-        }
-      }
-
-      // Call render functions on load
+      // Initial render
       window.onload = function () {
         renderQuizList();
         renderNewsList();
       };
+
+      const items = document.querySelectorAll(".sidebar-item");
+
+      items.forEach((item) => {
+        item.addEventListener("click", () => {
+          // remove 'active' from all
+          items.forEach((i) => i.classList.remove("active"));
+          // add 'active' to the clicked one
+          item.classList.add("active");
+        });
+      });
     </script>
   </body>
 </html>
