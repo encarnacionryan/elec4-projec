@@ -181,18 +181,23 @@
         <header class="header">
           <div class="welcome">
             <p style="font-size: 20px;">Welcome Back, <span id="studentName">Student</span>!</p>
-            <h3 style="font-size: 30px;">Student Portal</h3>
+            <h3 style="font-size: 30px;">Exclusive Offers Await!</h3>
           </div>
-          <div class="profile">
-            <img src="image/robot.png" alt="profile" class="avatar" style="width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                background: #b0c4de;
-                margin-right: 10px;
-                border: 2px solid black;" />
-            <div>
-              <p style="margin-bottom: 2px"><strong id="studentNameHeader">Student</strong></p>
-              <small id="studentNoHeader">No.</small>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <button onclick="openChatModal()" style="background-color: #C9D9FF; border: 2px solid black; border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.backgroundColor='#94b5d9'" onmouseout="this.style.backgroundColor='#C9D9FF'">
+              <i class="bi bi-chat-dots-fill" style="font-size: 24px; color: #1e3a5f;"></i>
+            </button>
+            <div class="profile">
+              <img src="image/robot.png" alt="profile" class="avatar" style="width: 50px;
+                  height: 50px;
+                  border-radius: 50%;
+                  background: #b0c4de;
+                  margin-right: 10px;
+                  border: 2px solid black;" />
+              <div>
+                <p style="margin-bottom: 2px"><strong id="studentNameHeader">Student</strong></p>
+                <small id="studentNoHeader">No.</small>
+              </div>
             </div>
           </div>
         </header>
@@ -213,12 +218,12 @@
           </div>
           <!-- Right: News/Events/Announcements -->
           <div style="flex:1;display:flex;flex-direction:column;gap:18px;">
-            <div class="tab-btns" style="display:flex;gap:150px;margin-bottom:10px;">
-              <button class="tab-btn" id="tabEvents" onclick="toggleStudentNewsTab('event')" style="background:#C9D9FF;color:#1e3a5f;border:none;border-radius:18px 18px 0 0;padding:8px 22px;font-size:1.05rem;font-weight:600;cursor:pointer;transition:background 0.18s, color 0.18s;outline:none;">Events</button>
-              <button class="tab-btn" id="tabNews" onclick="toggleStudentNewsTab('news')" style="background:#fff;color:#1e3a5f;border:none;border-radius:18px 18px 0 0;padding:8px 22px;font-size:1.05rem;font-weight:600;cursor:pointer;transition:background 0.18s, color 0.18s;outline:none;">News</button>
-              <button class="tab-btn" id="tabAnnouncements" onclick="toggleStudentNewsTab('announcement')" style="background:#fff;color:#1e3a5f;border:none;border-radius:18px 18px 0 0;padding:8px 22px;font-size:1.05rem;font-weight:600;cursor:pointer;transition:background 0.18s, color 0.18s;outline:none;">Announcement</button>
+            <div class="tab-btns" style="display:flex;gap:15px;margin-bottom:10px;align-items:center;">
+              <button class="tab-btn" id="tabEvents" onclick="toggleStudentNewsTab('event')" style="background:transparent;color:#1e3a5f;border:2px solid #1e3a5f;border-radius:50px;padding:10px 24px;font-size:1.05rem;font-weight:500;cursor:pointer;transition:all 0.18s;outline:none;">Events</button>
+              <button class="tab-btn" id="tabNews" onclick="toggleStudentNewsTab('news')" style="background:transparent;color:#1e3a5f;border:2px solid #1e3a5f;border-radius:50px;padding:10px 24px;font-size:1.05rem;font-weight:500;cursor:pointer;transition:all 0.18s;outline:none;">News</button>
+              <button class="tab-btn" id="tabAnnouncements" onclick="toggleStudentNewsTab('announcement')" style="background:transparent;color:#1e3a5f;border:2px solid #1e3a5f;border-radius:50px;padding:10px 24px;font-size:1.05rem;font-weight:500;cursor:pointer;transition:all 0.18s;outline:none;">Announcement</button>
             </div>
-            <div id="studentNewsContainer" style="background:#C9D9FF;border-radius:18px;box-shadow:0 2px 8px rgba(30,58,95,0.10);padding:18px 20px;display:grid;grid-template-columns:1fr 1fr;gap:18px;border:1px solid #bbb;"></div>
+            <div id="studentNewsContainer" style="background:#C9D9FF;border-radius:18px;box-shadow:0 2px 8px rgba(30,58,95,0.10);padding:18px 20px;display:flex;flex-direction:column;gap:16px;border:1px solid #bbb;max-height:calc(100vh - 280px);overflow-y:auto;"></div>
           </div>
         </div>
         <div id="studentProfileSection" style="display:none;flex:1;flex-direction:column;align-items:flex-start;padding:32px 32px 32px 32px;">
@@ -251,6 +256,42 @@
             <input type="text" id="editProfileContact" placeholder="Contact Number" style="width:100%;padding:12px 16px;margin-bottom:10px;border-radius:12px;border:1px solid #bbb;background:#fff;font-size:1.08rem;font-weight:500;" />
             <input type="password" id="editProfilePassword" placeholder="New Password" style="width:100%;padding:12px 16px;margin-bottom:18px;border-radius:12px;border:1px solid #bbb;background:#fff;font-size:1.08rem;font-weight:500;" />
             <button type="button" class="edit-profile-btn" onclick="saveProfileEdit()" style="width:100%;background:#bfcbe6;color:#222;border:none;border-radius:12px;padding:10px 0;font-size:1.08rem;font-weight:600;box-shadow:0 1px 4px #bbb;">Save</button>
+          </div>
+        </div>
+        <!-- Chat Modal -->
+        <div id="chatModal" class="modal" style="display:none;position:fixed;z-index:999;left:0;top:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);justify-content:center;align-items:center;">
+          <div style="background:#fff;border-radius:16px;border:2px solid #222;box-shadow:0 4px 16px rgba(0,0,0,0.2);width:90%;max-width:800px;height:85vh;display:flex;flex-direction:column;position:relative;">
+            <button onclick="closeChatModal()" style="position:absolute;top:12px;right:12px;background:#fff;border:2px solid #222;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:#222;cursor:pointer;z-index:2;">&times;</button>
+            <div style="padding:20px;border-bottom:2px solid #ddd;display:flex;justify-content:space-between;align-items:center;">
+              <h3 style="margin:0;font-size:1.5rem;color:#1e3a5f;font-weight:700;">Chat with Students</h3>
+            </div>
+            <div style="display:flex;flex:1;overflow:hidden;">
+              <!-- Student List -->
+              <div id="studentListContainer" style="width:250px;border-right:2px solid #ddd;overflow-y:auto;background:#f5f5f5;">
+                <div style="padding:12px;background:#C9D9FF;border-bottom:1px solid #ddd;">
+                  <input type="text" id="studentSearchInput" placeholder="Search students..." style="width:100%;padding:8px;border-radius:8px;border:1px solid #bbb;font-size:0.9rem;" />
+                </div>
+                <div id="studentList" style="padding:8px;">
+                  <!-- Student list will be populated here -->
+                </div>
+              </div>
+              <!-- Chat Area -->
+              <div style="flex:1;display:flex;flex-direction:column;">
+                <div id="chatHeader" style="padding:16px;border-bottom:2px solid #ddd;background:#C9D9FF;display:none;">
+                  <h4 id="chatStudentName" style="margin:0;font-size:1.2rem;color:#1e3a5f;font-weight:600;"></h4>
+                  <small id="chatStudentNo" style="color:#666;"></small>
+                </div>
+                <div id="chatMessages" style="flex:1;overflow-y:auto;padding:16px;background:#fafafa;">
+                  <div style="text-align:center;color:#999;padding:40px;">Select a student to start chatting</div>
+                </div>
+                <div id="chatInputContainer" style="padding:16px;border-top:2px solid #ddd;background:#fff;display:none;">
+                  <div style="display:flex;gap:8px;">
+                    <input type="text" id="chatMessageInput" placeholder="Type a message..." style="flex:1;padding:12px;border-radius:8px;border:2px solid #ddd;font-size:1rem;" onkeypress="if(event.key==='Enter') sendChatMessage();" />
+                    <button onclick="sendChatMessage()" style="background:#C9D9FF;color:#1e3a5f;border:2px solid #222;border-radius:8px;padding:12px 24px;font-size:1rem;font-weight:600;cursor:pointer;transition:background 0.2s;">Send</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </main>
@@ -349,6 +390,9 @@
       function updateStudentProfileUI() {
         var cur = JSON.parse(localStorage.getItem('currentStudent') || 'null');
         if (!cur) return;
+        // Update welcome message
+        document.getElementById('studentName').textContent = cur.name;
+        // Update profile cards
         document.getElementById('profileName').textContent = cur.name;
         document.getElementById('profileNo').textContent = cur.studentNo;
         document.getElementById('profileCourse').textContent = cur.course || '-';
@@ -458,7 +502,7 @@
           html += '<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:10px;height:100%;position:relative;">';
           html += '<h4 style="font-size:1.25rem;color:#1e3a5f;margin-bottom:0;font-weight:700;">' + (n.title || (n.type.charAt(0).toUpperCase() + n.type.slice(1))) + '</h4>';
           html += '<div style="font-size:1.08rem;color:#222;font-weight:500;margin-bottom:0;">' + n.desc + '</div>';
-          if (n.scheduleDate) html += '<div style="font-size:1.08rem;color:#176c2f;font-weight:600;position:absolute;bottom:0;left:0;">Schedule: ' + n.scheduleDate + '</div>';
+          if (n.schedule || n.scheduleDate) html += '<div style="font-size:1.08rem;color:#176c2f;font-weight:600;position:absolute;bottom:0;left:0;">Schedule: ' + (n.schedule || n.scheduleDate) + '</div>';
           html += '</div>';
           html += '</div>';
         });
@@ -469,13 +513,25 @@
       window.onload = function () {
         var cur = JSON.parse(localStorage.getItem("currentStudent") || "null");
         if (!cur) {
-          window.location.href = "studentdashboard.html";
+          window.location.href = "index.html";
           return;
         }
-        document.getElementById("welcome").textContent =
-          "Welcome Back, " + cur.name + "!";
+        // Merge with full student data from students array
+        var students = JSON.parse(localStorage.getItem('students') || '[]');
+        var fullStudent = students.find(function(s) {
+          return (s.no === cur.studentNo || s.studentNo === cur.studentNo) || 
+                 (s.email === cur.email && cur.email);
+        });
+        if (fullStudent) {
+          // Merge full student data into currentStudent
+          cur.course = cur.course || fullStudent.course || '';
+          cur.email = cur.email || fullStudent.email || '';
+          cur.contact = cur.contact || fullStudent.contact || '';
+          cur.profileImg = cur.profileImg || fullStudent.profileImg || 'image/robot.png';
+          localStorage.setItem('currentStudent', JSON.stringify(cur));
+        }
         document.getElementById("studentName").textContent = cur.name;
-        document.getElementById("studentNo").textContent = cur.studentNo;
+        // Note: studentNo is not in header, only studentNameHeader and studentNoHeader
         updateStudentProfileUI();
         renderStudentQuizzes(); // Ensure quizzes display immediately on login
         renderStudentNews();
@@ -485,6 +541,9 @@
       window.onclick = function (e) {
         if (e.target.classList && e.target.classList.contains("modal")) {
           e.target.style.display = "none";
+          if (e.target.id === 'chatModal') {
+            currentChatStudent = null;
+          }
         }
       };
       function openStudentHelpModal() {
@@ -492,6 +551,117 @@
       }
       function closeStudentHelpModal() {
         document.getElementById('studentHelpModal').style.display = 'none';
+      }
+
+      // Chat functionality
+      var currentChatStudent = null;
+      function openChatModal() {
+        document.getElementById('chatModal').style.display = 'flex';
+        renderStudentList();
+      }
+      function closeChatModal() {
+        document.getElementById('chatModal').style.display = 'none';
+        currentChatStudent = null;
+      }
+      function renderStudentList() {
+        var students = JSON.parse(localStorage.getItem('students') || '[]');
+        var currentStudent = JSON.parse(localStorage.getItem('currentStudent') || 'null');
+        if (!currentStudent) return;
+        var container = document.getElementById('studentList');
+        var html = '';
+        students.forEach(function(s) {
+          // Don't show current student in list
+          if (s.no === currentStudent.studentNo || s.email === currentStudent.email) return;
+          var studentName = s.name || 'Student';
+          var studentNo = s.no || '-';
+          var studentImg = s.profileImg || 'image/robot.png';
+          html += '<div onclick="selectChatStudent(\'' + s.no + '\')" style="padding:12px;cursor:pointer;display:flex;align-items:center;gap:12px;border-bottom:1px solid #ddd;transition:background 0.2s;" onmouseover="this.style.background=\'#e0e0e0\'" onmouseout="this.style.background=\'transparent\'">';
+          html += '<img src="' + studentImg + '" alt="' + studentName + '" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #222;" />';
+          html += '<div style="flex:1;min-width:0;">';
+          html += '<div style="font-weight:600;color:#1e3a5f;font-size:0.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + studentName + '</div>';
+          html += '<div style="font-size:0.85rem;color:#666;">' + studentNo + '</div>';
+          html += '</div>';
+          html += '</div>';
+        });
+        if (!html) {
+          html = '<div style="padding:20px;text-align:center;color:#999;">No other students available</div>';
+        }
+        container.innerHTML = html;
+        // Add search functionality
+        document.getElementById('studentSearchInput').addEventListener('input', function(e) {
+          var searchTerm = e.target.value.toLowerCase();
+          var items = container.querySelectorAll('div[onclick]');
+          items.forEach(function(item) {
+            var text = item.textContent.toLowerCase();
+            item.style.display = text.includes(searchTerm) ? 'flex' : 'none';
+          });
+        });
+      }
+      function selectChatStudent(studentNo) {
+        var students = JSON.parse(localStorage.getItem('students') || '[]');
+        var student = students.find(function(s) { return s.no === studentNo; });
+        if (!student) return;
+        currentChatStudent = studentNo;
+        // Show chat header
+        document.getElementById('chatHeader').style.display = 'block';
+        document.getElementById('chatStudentName').textContent = student.name || 'Student';
+        document.getElementById('chatStudentNo').textContent = student.no || '-';
+        // Show chat input
+        document.getElementById('chatInputContainer').style.display = 'block';
+        // Load and display messages
+        renderChatMessages();
+      }
+      function renderChatMessages() {
+        if (!currentChatStudent) return;
+        var currentStudent = JSON.parse(localStorage.getItem('currentStudent') || 'null');
+        if (!currentStudent) return;
+        var chats = JSON.parse(localStorage.getItem('studentChats') || '{}');
+        var currentStudentId = currentStudent.studentNo;
+        var chatKey = [currentStudentId, currentChatStudent].sort().join('_');
+        var messages = chats[chatKey] || [];
+        var container = document.getElementById('chatMessages');
+        var html = '';
+        if (messages.length === 0) {
+          html = '<div style="text-align:center;color:#999;padding:40px;">No messages yet. Start the conversation!</div>';
+        } else {
+          messages.forEach(function(msg) {
+            var isSent = msg.from === currentStudentId;
+            html += '<div style="display:flex;justify-content:' + (isSent ? 'flex-end' : 'flex-start') + ';margin-bottom:12px;">';
+            html += '<div style="max-width:70%;background:' + (isSent ? '#C9D9FF' : '#e0e0e0') + ';padding:10px 14px;border-radius:12px;border:1px solid ' + (isSent ? '#94b5d9' : '#ccc') + ';">';
+            html += '<div style="font-size:0.9rem;color:#1e3a5f;font-weight:600;margin-bottom:4px;">' + (msg.fromName || msg.from) + '</div>';
+            html += '<div style="color:#222;font-size:1rem;word-wrap:break-word;">' + msg.text + '</div>';
+            html += '<div style="font-size:0.75rem;color:#666;margin-top:4px;text-align:right;">' + (msg.time || '') + '</div>';
+            html += '</div>';
+            html += '</div>';
+          });
+        }
+        container.innerHTML = html;
+        container.scrollTop = container.scrollHeight;
+      }
+      function sendChatMessage() {
+        if (!currentChatStudent) return;
+        var currentStudent = JSON.parse(localStorage.getItem('currentStudent') || 'null');
+        if (!currentStudent) return;
+        var input = document.getElementById('chatMessageInput');
+        var messageText = input.value.trim();
+        if (!messageText) return;
+        var chats = JSON.parse(localStorage.getItem('studentChats') || '{}');
+        var currentStudentId = currentStudent.studentNo;
+        var chatKey = [currentStudentId, currentChatStudent].sort().join('_');
+        if (!chats[chatKey]) chats[chatKey] = [];
+        var now = new Date();
+        var timeStr = now.getHours() + ':' + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
+        chats[chatKey].push({
+          from: currentStudentId,
+          fromName: currentStudent.name,
+          to: currentChatStudent,
+          text: messageText,
+          time: timeStr,
+          timestamp: now.getTime()
+        });
+        localStorage.setItem('studentChats', JSON.stringify(chats));
+        input.value = '';
+        renderChatMessages();
       }
     </script>
   </body>

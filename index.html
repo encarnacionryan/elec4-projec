@@ -231,7 +231,7 @@ input[type="checkbox"] {
     const password = document.getElementById("password").value.trim();
 
     if (username === "admin" && password === "123") {
-        window.location.href = "admindashboard.html"; // redirect to admin dashboard
+        window.location.href = "admindashboard.html#"; // redirect to admin dashboard
     } else {
         // Check if student exists in localStorage (array)
         var students = JSON.parse(localStorage.getItem('students') || '[]');
@@ -239,9 +239,16 @@ input[type="checkbox"] {
             return (stu.no === username || stu.email === username) && stu.password === password;
         });
         if (s) {
-            // store current session and redirect
-            localStorage.setItem('currentStudent', JSON.stringify({ studentNo: s.no, name: s.name }));
-            window.location.href = 'studentdashboard.html';
+            // store current session and redirect - store full student data
+            localStorage.setItem('currentStudent', JSON.stringify({ 
+                studentNo: s.no, 
+                name: s.name,
+                course: s.course || '',
+                email: s.email || '',
+                contact: s.contact || '',
+                profileImg: s.profileImg || 'image/robot.png'
+            }));
+            window.location.href = 'studentdashboard.html#';
         } else {
             console.log('Login failed:', username, password, students);
             alert("Invalid username or password. Please try again.");

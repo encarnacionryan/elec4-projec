@@ -1295,7 +1295,7 @@
         var desc = document.getElementById("newsDesc").value.trim();
         var schedule = document.getElementById("newsScheduleDate").value;
         var imgInput = document.getElementById("newsImage");
-        var img = imgInput && imgInput.files[0] ? URL.createObjectURL(imgInput.files[0]) : "";
+        
         if (!title) {
           alert("Please enter a title.");
           return;
@@ -1304,11 +1304,25 @@
           alert("Please enter a description.");
           return;
         }
-        var news = JSON.parse(localStorage.getItem("news") || "[]");
-        news.push({ type: type, title: title, desc: desc, schedule: schedule, img: img });
-        localStorage.setItem("news", JSON.stringify(news));
-        renderNewsList();
-        closeModal("newsModal");
+        
+        function finishCreateNews(imgData) {
+          var news = JSON.parse(localStorage.getItem("news") || "[]");
+          news.push({ type: type, title: title, desc: desc, schedule: schedule, img: imgData || "" });
+          localStorage.setItem("news", JSON.stringify(news));
+          renderNewsList();
+          closeModal("newsModal");
+        }
+        
+        // Convert image to base64 if provided
+        if (imgInput && imgInput.files && imgInput.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+            finishCreateNews(e.target.result);
+          };
+          reader.readAsDataURL(imgInput.files[0]);
+        } else {
+          finishCreateNews("");
+        }
       }
       function editNews(idx) {
         var news = JSON.parse(localStorage.getItem("news") || "[]");
@@ -1325,7 +1339,7 @@
           var desc = document.getElementById("newsDesc").value.trim();
           var schedule = document.getElementById("newsScheduleDate").value;
           var imgInput = document.getElementById("newsImage");
-          var img = imgInput && imgInput.files[0] ? URL.createObjectURL(imgInput.files[0]) : n.img;
+          
           if (!title) {
             alert("Please enter a title.");
             return;
@@ -1334,11 +1348,25 @@
             alert("Please enter a description.");
             return;
           }
-          news[idx] = { type: n.type, title: title, desc: desc, schedule: schedule, img: img };
-          localStorage.setItem("news", JSON.stringify(news));
-          renderNewsList();
-          closeModal("newsModal");
-          document.getElementById("newsForm").onsubmit = null;
+          
+          function finishEditNews(imgData) {
+            news[idx] = { type: n.type, title: title, desc: desc, schedule: schedule, img: imgData || n.img || "" };
+            localStorage.setItem("news", JSON.stringify(news));
+            renderNewsList();
+            closeModal("newsModal");
+            document.getElementById("newsForm").onsubmit = null;
+          }
+          
+          // Convert image to base64 if new file provided, otherwise keep existing
+          if (imgInput && imgInput.files && imgInput.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+              finishEditNews(e.target.result);
+            };
+            reader.readAsDataURL(imgInput.files[0]);
+          } else {
+            finishEditNews(n.img || "");
+          }
         };
       }
       function deleteNews(idx) {
